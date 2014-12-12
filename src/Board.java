@@ -9,6 +9,9 @@
  * We could try making a 2-D array to represent the board. I'm not sure how that would play out,
  * but it's simple if we just assign pieces to the board. We could do actual move calculation on the
  * pieces themselves.
+ * 
+ * What I was thinking, is that we just use the board for reference purposes only. We can pull locations from it
+ * to test if moves by individual pieces would be valid or not.
  */
 public class Board {
 
