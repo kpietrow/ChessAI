@@ -28,25 +28,13 @@ public class ConstructMove {
 		System.out.println("done!");
 		
 		
-		
 	}
 	
-	public static void run2(String gameID) {
+	/*
+	 * This is going to be difficult. This is where the evaluation function will go.
+	 */
+	public static void eval() {
 		
-		HttpURLConnection response;
-		try {
-			response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + gameID + "/209/fcbd8a97/Pa7a6/")).openConnection();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(response.getInputStream()));
-		
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("done!");
 		
 		
 		

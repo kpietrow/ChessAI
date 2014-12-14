@@ -17,9 +17,7 @@ import org.json.JSONObject;
  * This is going to hold the main method
  */
 public class Runnable {
-	public static void main(String args[]) {
-		Test.printBoard();
-		
+	public static void main(String args[]) {		
 		
 		// Set scanner to get game number when program started
 		Scanner sc = new Scanner(System.in);

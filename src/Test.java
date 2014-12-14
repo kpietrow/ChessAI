@@ -98,17 +98,5 @@ public class Test {
 		
 	}
 	
-	public static void printBoard() {
-		String board = "";
-		
-		for (int i = 0; i < 144; i++) {
-			if (i % 12 == 0) {
-				System.out.println("");
-			}
-			
-			System.out.print(i + " ");
-			
-		}
-	}
 	
 }
