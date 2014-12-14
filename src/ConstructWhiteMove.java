@@ -89,6 +89,11 @@ public class ConstructWhiteMove {
 		// Bishop
 		} else if (piece.pieceType == 3) {
 			value += calculateWhiteDiagonalAttacks(location, board);
+		
+		
+		// Knight
+		} else if (piece.pieceType == 2) {
+			value += calculateWhiteKnightAttacks(location, board);
 		}
 		
 		
@@ -101,22 +106,38 @@ public class ConstructWhiteMove {
 	public int calculateWhiteKingAttacks(int location, Board board) {
 		int value = 0;
 		
+		// Check all of the potential attack locations
+		
 		// This means a black piece is there
 		if (board.state[location - 13] < 0) {
 			value += calculateAttackValue(board.blackPieces[board.state[location - 13]].pieceType);
-		} else if (board.state[location - 12] < 0) {
+		} 
+		
+		if (board.state[location - 12] < 0) {
 			value += calculateAttackValue(board.blackPieces[board.state[location - 12]].pieceType);
-		} else if (board.state[location - 11] < 0) {
+		}
+		
+		if (board.state[location - 11] < 0) {
 			value += calculateAttackValue(board.blackPieces[board.state[location - 11]].pieceType);
-		} else if (board.state[location - 1] < 0) {
+		}
+		
+		if (board.state[location - 1] < 0) {
 			value += calculateAttackValue(board.blackPieces[board.state[location - 1]].pieceType);
-		} else if (board.state[location + 1] < 0) {
+		}
+		
+		if (board.state[location + 1] < 0) {
 			value += calculateAttackValue(board.blackPieces[board.state[location + 1]].pieceType);
-		} else if (board.state[location + 11] < 0) {
+		}
+		
+		if (board.state[location + 11] < 0) {
 			value += calculateAttackValue(board.blackPieces[board.state[location + 11]].pieceType);
-		} else if (board.state[location + 12] < 0) {
+		}
+		
+		if (board.state[location + 12] < 0) {
 			value += calculateAttackValue(board.blackPieces[board.state[location + 12]].pieceType);
-		} else if (board.state[location + 13] < 0) {
+		}
+		
+		if (board.state[location + 13] < 0) {
 			value += calculateAttackValue(board.blackPieces[board.state[location + 13]].pieceType);
 		}
 		
@@ -133,6 +154,44 @@ public class ConstructWhiteMove {
 		return value;
 	}
 	
+	public int calculateWhiteKnightAttacks(int location, Board board) {
+		int value = 0;
+		
+		if (board.state[location + 14] < 0) {
+			value += calculateAttackValue(board.blackPieces[board.state[location + 14]].pieceType);
+		}
+		
+		if (board.state[location + 10] < 0) {
+			value += calculateAttackValue(board.blackPieces[board.state[location + 10]].pieceType);
+		}
+		
+		if (board.state[location + 23] < 0) {
+			value += calculateAttackValue(board.blackPieces[board.state[location + 23]].pieceType);
+		}
+		
+		if (board.state[location + 25] < 0) {
+			value += calculateAttackValue(board.blackPieces[board.state[location + 25]].pieceType);
+		}
+		
+		if (board.state[location - 10] < 0) {
+			value += calculateAttackValue(board.blackPieces[board.state[location - 10]].pieceType);
+		}
+		
+		if (board.state[location - 14] < 0) {
+			value += calculateAttackValue(board.blackPieces[board.state[location - 14]].pieceType);
+		}
+		
+		if (board.state[location - 23] < 0) {
+			value += calculateAttackValue(board.blackPieces[board.state[location - 23]].pieceType);
+		}
+		
+		if (board.state[location - 25] < 0) {
+			value += calculateAttackValue(board.blackPieces[board.state[location - 25]].pieceType);
+		}
+		
+		return value;
+	}
+	
 	public int calculateWhiteDiagonalAttacks(int location, Board board) {
 		
 		int value = 0;
@@ -140,8 +199,8 @@ public class ConstructWhiteMove {
 		// Up and to the right 
 		// (Limit is 118, because 117 is the absolute highest that the board goes)
 		for (int i = location + 13; i < 118; i += 13) {
-			// The jig is up!
-			if (board.state[i] == 99) {
+			// The jig is up! Friendly piece or boundary detected
+			if (board.state[i] > 0) {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
@@ -152,8 +211,8 @@ public class ConstructWhiteMove {
 		
 		// Up and to the left 
 		for (int i = location + 11; i < 118; i += 11) {
-			// The jig is up!
-			if (board.state[i] == 99) {
+			// The jig is up! Friendly piece or boundary detected
+				if (board.state[i] > 0) {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
@@ -165,8 +224,8 @@ public class ConstructWhiteMove {
 		// Down and to the right 
 		// (Limit is 25, because 26 is the absolute lowest that the board goes)
 		for (int i = location - 11; i > 25; i -= 11) {
-			// The jig is up!
-			if (board.state[i] == 99) {
+			// The jig is up! Friendly piece or boundary detected
+			if (board.state[i] > 0) {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
@@ -177,8 +236,8 @@ public class ConstructWhiteMove {
 		
 		// Down and to the left 
 		for (int i = location - 13; i > 25; i -= 13) {
-			// The jig is up!
-			if (board.state[i] == 99) {
+			// The jig is up! Friendly piece or boundary detected
+			if (board.state[i] > 0) {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
@@ -196,8 +255,8 @@ public class ConstructWhiteMove {
 		// To the right 
 		// (Limit is 118, because 117 is the absolute highest that the board goes)
 		for (int i = location + 1; i < 118; i++) {
-			// The jig is up!
-			if (board.state[i] == 99) {
+			// The jig is up! Friendly piece or boundary detected
+			if (board.state[i] > 0) {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
@@ -209,8 +268,8 @@ public class ConstructWhiteMove {
 		// To the left 
 		// (Limit is 25, because 26 is the absolute lowest that the board goes)
 		for (int i = location - 1; i > 25; i--) {
-			// The jig is up!
-			if (board.state[i] == 99) {
+			// The jig is up! Friendly piece or boundary detected
+			if (board.state[i] > 0) {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
@@ -221,8 +280,8 @@ public class ConstructWhiteMove {
 		
 		// Up 
 		for (int i = location + 12; i < 118; i += 12) {
-			// The jig is up!
-			if (board.state[i] == 99) {
+			// The jig is up! Friendly piece or boundary detected
+			if (board.state[i] > 0) {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
@@ -233,8 +292,8 @@ public class ConstructWhiteMove {
 		
 		// Down 
 		for (int i = location - 12; i > 25; i -= 12) {
-			// The jig is up!
-			if (board.state[i] == 99) {
+			// The jig is up! Friendly piece or boundary detected
+			if (board.state[i] > 0) {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
