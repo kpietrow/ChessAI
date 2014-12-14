@@ -94,10 +94,11 @@ public class ConstructWhiteMove {
 		// Knight
 		} else if (piece.pieceType == 2) {
 			value += calculateWhiteKnightAttacks(location, board);
+		
+		// Pawn
+		} else if (piece.pieceType == 1) {
+			value += calculateWhitePawnAttacks(location, board);
 		}
-		
-		
-		
 		
 		return value;
 	}
@@ -187,6 +188,20 @@ public class ConstructWhiteMove {
 		
 		if (board.state[location - 25] < 0) {
 			value += calculateAttackValue(board.blackPieces[board.state[location - 25]].pieceType);
+		}
+		
+		return value;
+	}
+	
+	public int calculateWhitePawnAttacks(int location, Board board) {
+		int value = 0;
+		
+		if (board.state[location + 13] < 0) {
+			value += calculateAttackValue(board.blackPieces[board.state[location + 13]].pieceType);
+		}
+		
+		if (board.state[location + 11] < 0) {
+			value += calculateAttackValue(board.blackPieces[board.state[location + 11]].pieceType);
 		}
 		
 		return value;
