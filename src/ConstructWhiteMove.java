@@ -75,20 +75,30 @@ public class ConstructWhiteMove {
 		
 		// King
 		if (piece.pieceType == 6) {
-			value += calculateKingAttacks(location, board);
+			value += calculateWhiteKingAttacks(location, board);
 		
 		// Queen
 		} else if (piece.pieceType == 5) {
-			value += calculateWhiteDiagonalAttacks(piece.location, board);
-			value += calculateWhiteRowAttacks(piece.location, board);
+			value += calculateWhiteQueensAttacks(location, board);
+		
+		
+		// Rook
+		} else if (piece.pieceType == 4) {
+			value += calculateWhiteRowAttacks(location, board);
+
+		// Bishop
+		} else if (piece.pieceType == 3) {
+			value += calculateWhiteDiagonalAttacks(location, board);
 		}
+		
 		
 		
 		
 		return value;
 	}
 	
-	public int calculateKingAttacks(int location, Board board) {
+	// Calculates the value of a White King's attacks
+	public int calculateWhiteKingAttacks(int location, Board board) {
 		int value = 0;
 		
 		// This means a black piece is there
@@ -113,26 +123,127 @@ public class ConstructWhiteMove {
 		return value;
 	}
 	
+	// Calculates the attacks of a White Queen
+	public int calculateWhiteQueensAttacks(int location, Board board) {
+		int value = 0;
+		
+		value += calculateWhiteDiagonalAttacks(location, board);
+		value += calculateWhiteRowAttacks(location, board);
+		
+		return value;
+	}
+	
 	public int calculateWhiteDiagonalAttacks(int location, Board board) {
+		
+		int value = 0;
 		
 		// Up and to the right 
 		// (Limit is 118, because 117 is the absolute highest that the board goes)
-		for (int i = location + 13; i < 118; i++) {
-			// The game is up!
+		for (int i = location + 13; i < 118; i += 13) {
+			// The jig is up!
 			if (board.state[i] == 99) {
 				break;
+			// Black piece detected
 			} else if (board.state[i] < 0) {
-				
+				value += calculateAttackValue(board.blackPieces[board.state[i]].pieceType);
+				break;
 			}
 		}
 		
-		return 0;
+		// Up and to the left 
+		for (int i = location + 11; i < 118; i += 11) {
+			// The jig is up!
+			if (board.state[i] == 99) {
+				break;
+			// Black piece detected
+			} else if (board.state[i] < 0) {
+				value += calculateAttackValue(board.blackPieces[board.state[i]].pieceType);
+				break;
+			}
+		}
+		
+		// Down and to the right 
+		// (Limit is 25, because 26 is the absolute lowest that the board goes)
+		for (int i = location - 11; i > 25; i -= 11) {
+			// The jig is up!
+			if (board.state[i] == 99) {
+				break;
+			// Black piece detected
+			} else if (board.state[i] < 0) {
+				value += calculateAttackValue(board.blackPieces[board.state[i]].pieceType);
+				break;
+			}
+		}
+		
+		// Down and to the left 
+		for (int i = location - 13; i > 25; i -= 13) {
+			// The jig is up!
+			if (board.state[i] == 99) {
+				break;
+			// Black piece detected
+			} else if (board.state[i] < 0) {
+				value += calculateAttackValue(board.blackPieces[board.state[i]].pieceType);
+				break;
+			}
+		}
+		
+		return value;
 	}
 	
 	public int calculateWhiteRowAttacks(int location, Board board) {
+		int value = 0;
 		
+		// To the right 
+		// (Limit is 118, because 117 is the absolute highest that the board goes)
+		for (int i = location + 1; i < 118; i++) {
+			// The jig is up!
+			if (board.state[i] == 99) {
+				break;
+			// Black piece detected
+			} else if (board.state[i] < 0) {
+				value += calculateAttackValue(board.blackPieces[board.state[i]].pieceType);
+				break;
+			}
+		}
 		
-		return 0;
+		// To the left 
+		// (Limit is 25, because 26 is the absolute lowest that the board goes)
+		for (int i = location - 1; i > 25; i--) {
+			// The jig is up!
+			if (board.state[i] == 99) {
+				break;
+			// Black piece detected
+			} else if (board.state[i] < 0) {
+				value += calculateAttackValue(board.blackPieces[board.state[i]].pieceType);
+				break;
+			}
+		}
+		
+		// Up 
+		for (int i = location + 12; i < 118; i += 12) {
+			// The jig is up!
+			if (board.state[i] == 99) {
+				break;
+			// Black piece detected
+			} else if (board.state[i] < 0) {
+				value += calculateAttackValue(board.blackPieces[board.state[i]].pieceType);
+				break;
+			}
+		}
+		
+		// Down 
+		for (int i = location - 12; i > 25; i -= 12) {
+			// The jig is up!
+			if (board.state[i] == 99) {
+				break;
+			// Black piece detected
+			} else if (board.state[i] < 0) {
+				value += calculateAttackValue(board.blackPieces[board.state[i]].pieceType);
+				break;
+			}
+		}
+		
+		return value;
 	}
 	
 	
