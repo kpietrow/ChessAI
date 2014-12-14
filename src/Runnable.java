@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import org.json.JSONException;
@@ -17,7 +18,9 @@ import org.json.JSONObject;
  * This is going to hold the main method
  */
 public class Runnable {
-	public static void main(String args[]) {		
+	public static void main(String args[]) {
+		
+		/*
 		
 		// Set scanner to get game number when program started
 		Scanner sc = new Scanner(System.in);
@@ -64,7 +67,10 @@ public class Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		} */
+		
+		Board board = new Board();
+		System.out.println(Arrays.toString(board.state));
 	}
 	
 }

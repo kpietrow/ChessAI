@@ -75,32 +75,32 @@ public class Board {
 	public Board () {
 		
 		// Fill in the top and bottom border
-		Arrays.fill(this.state, 0, 23, 99);
-		Arrays.fill(this.state, 120, 143, 99);
+		Arrays.fill(this.state, 0, 24, 99);
+		Arrays.fill(this.state, 120, 144, 99);
 		
 		// Fill in the side borders
 		for (int i = 24; i < 120; i += 12) {
-			Arrays.fill(this.state, i, i + 1, 99);
-			Arrays.fill(this.state, i + 10, i + 11, 99);
+			Arrays.fill(this.state, i, i + 2, 99);
+			Arrays.fill(this.state, i + 10, i + 12, 99);
 		}
 		
 		// Fill in the blank parts of the main board
 		for (int i = 50; i < 98; i += 12) {
-			Arrays.fill(this.state, i, i + 7, 0);
-		}
-		
-		// Fill in blacks's pawns
-		int index = -9;
-		for (int i = 38; i < 46; i++) {
-			state[i] = index;
-			index--;
+			Arrays.fill(this.state, i, i + 8, 0);
 		}
 		
 		// Fill in white's pawns
-		index = 9;
-		for (int i = 98; i < 95; i++) {
+		int index = 9;
+		for (int i = 38; i < 46; i++) {
 			state[i] = index;
 			index++;
+		}
+		
+		// Fill in black's pawns
+		index = -9;
+		for (int i = 98; i < 106; i++) {
+			state[i] = index;
+			index--;
 		}
 		
 		// Fill in the rest
