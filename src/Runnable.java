@@ -71,9 +71,10 @@ public class Runnable {
 		
 		Board board = new Board();
 		Board aBoard = new Board(board);
-		board.whitePieces[0].pieceType = 150;
-	
-		System.out.println(board.whitePieces[0].pieceType);
+		board.state[77] = 1;
+		board.whitePieces[1].location = 77;
+		
+		System.out.println(Evaluation.eval(board, true));
 		System.out.println(aBoard.whitePieces[0].pieceType);
 	}
 	

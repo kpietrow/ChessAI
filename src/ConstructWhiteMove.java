@@ -25,7 +25,7 @@ public class ConstructWhiteMove {
 			e.printStackTrace();
 		}
 		
-		// Evaluation.eval(board);
+		// Evaluation.eval(board, true);
 		
 		
 		System.out.println("done!");
