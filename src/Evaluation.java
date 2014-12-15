@@ -17,10 +17,13 @@ public class Evaluation {
 		for (int i = 0; i < board.whitePieces.length; i++) {
 			if (board.whitePieces[i].active) {
 				evalValue += board.whitePieces[i].value;
+				System.out.println(evalValue);
 			}
 			
 			if (board.blackPieces[i].active) {
 				evalValue -= board.blackPieces[i].value;
+				System.out.println(evalValue);
+
 			}
 		}
 		
@@ -28,6 +31,8 @@ public class Evaluation {
 		for (int i = 0; i < board.whitePieces.length; i++) {
 			if (board.whitePieces[i].active) {
 				evalValue += calculateWhiteAttackValue(board.whitePieces[i], board);
+				System.out.println(evalValue);
+
 			}
 		}
 		
@@ -35,6 +40,8 @@ public class Evaluation {
 		for (int i = 0; i < board.blackPieces.length; i++) {
 			if (board.blackPieces[i].active) {
 				evalValue -= calculateBlackAttackValue(board.blackPieces[i], board);
+				System.out.println(evalValue);
+
 			}
 		}
 		
@@ -92,35 +99,35 @@ public class Evaluation {
 		
 		// This means a white piece is there
 		if (board.state[location - 13] > 0 && board.state[location - 13] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location - 13]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location - 13] - 1].pieceType);
 		} 
 		
 		if (board.state[location - 12] > 0 && board.state[location - 12] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location - 12]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location - 12] - 1].pieceType);
 		}
 		
 		if (board.state[location - 11] > 0 && board.state[location - 11] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location - 11]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location - 11] - 1].pieceType);
 		}
 		
 		if (board.state[location - 1] > 0 && board.state[location - 1] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location - 1]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location - 1] - 1].pieceType);
 		}
 		
 		if (board.state[location + 1] > 0 && board.state[location + 1] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location + 1]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location + 1] - 1].pieceType);
 		}
 		
 		if (board.state[location + 11] > 0 && board.state[location + 11] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location + 11]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location + 11] - 1].pieceType);
 		}
 		
 		if (board.state[location + 12] > 0 && board.state[location + 12] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location + 12]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location + 12] - 1].pieceType);
 		}
 		
 		if (board.state[location + 13] > 0 && board.state[location + 13] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location + 13]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location + 13] - 1].pieceType);
 		}
 		
 		return value;
@@ -140,35 +147,35 @@ public class Evaluation {
 		int value = 0;
 		
 		if (board.state[location + 14] > 0 && board.state[location + 14] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location + 14]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location + 14] - 1].pieceType);
 		}
 		
 		if (board.state[location + 10] > 0 && board.state[location + 10] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location + 10]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location + 10] - 1].pieceType);
 		}
 		
 		if (board.state[location + 23] > 0 && board.state[location + 23] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location + 23]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location + 23] - 1].pieceType);
 		}
 		
 		if (board.state[location + 25] > 0 && board.state[location + 25] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location + 25]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location + 25] - 1].pieceType);
 		}
 		
 		if (board.state[location - 10] > 0 && board.state[location - 10] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location - 10]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location - 10] - 1].pieceType);
 		}
 		
 		if (board.state[location - 14] > 0 && board.state[location - 14] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location - 14]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location - 14] - 1].pieceType);
 		}
 		
 		if (board.state[location - 23] > 0 && board.state[location - 23] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location - 23]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location - 23] - 1].pieceType);
 		}
 		
 		if (board.state[location - 25] > 0 && board.state[location - 25] != 99) {
-			value -= calculateAttackValue(board.whitePieces[board.state[location - 25]].pieceType);
+			value -= calculateAttackValue(board.whitePieces[board.state[location - 25] - 1].pieceType);
 		}
 		
 		return value;
@@ -179,11 +186,11 @@ public class Evaluation {
 		
 		if (board.state[location - 13] > 0 && board.state[location - 13] != 99) {
 			System.out.println(board.state[location - 13] != 99);
-			value += calculateAttackValue(board.whitePieces[board.state[location - 13]].pieceType);
+			value += calculateAttackValue(board.whitePieces[board.state[location - 13] - 1].pieceType);
 		}
 		
 		if (board.state[location - 11] > 0 && board.state[location - 11] != 99) {
-			value += calculateAttackValue(board.whitePieces[board.state[location - 11]].pieceType);
+			value += calculateAttackValue(board.whitePieces[board.state[location - 11] - 1].pieceType);
 		}
 		
 		return value;
@@ -201,7 +208,7 @@ public class Evaluation {
 				break;
 			// White piece detected
 			} else if (board.state[i] > 0) {
-				value -= calculateAttackValue(board.whitePieces[board.state[i]].pieceType);
+				value -= calculateAttackValue(board.whitePieces[board.state[i] - 1].pieceType);
 				break;
 			}
 		}
@@ -213,7 +220,7 @@ public class Evaluation {
 				break;
 			// White piece detected
 			} else if (board.state[i] > 0) {
-				value -= calculateAttackValue(board.whitePieces[board.state[i]].pieceType);
+				value -= calculateAttackValue(board.whitePieces[board.state[i] - 1].pieceType);
 				break;
 			}
 		}
@@ -226,7 +233,7 @@ public class Evaluation {
 				break;
 			// White piece detected
 			} else if (board.state[i] > 0) {
-				value -= calculateAttackValue(board.whitePieces[board.state[i]].pieceType);
+				value -= calculateAttackValue(board.whitePieces[board.state[i] - 1].pieceType);
 				break;
 			}
 		}
@@ -238,7 +245,7 @@ public class Evaluation {
 				break;
 			// White piece detected
 			} else if (board.state[i] > 0) {
-				value -= calculateAttackValue(board.whitePieces[board.state[i]].pieceType);
+				value -= calculateAttackValue(board.whitePieces[board.state[i] - 1].pieceType);
 				break;
 			}
 		}
@@ -257,7 +264,7 @@ public class Evaluation {
 				break;
 			// White piece detected
 			} else if (board.state[i] > 0) {
-				value -= calculateAttackValue(board.whitePieces[board.state[i]].pieceType);
+				value -= calculateAttackValue(board.whitePieces[board.state[i] - 1].pieceType);
 				break;
 			}
 		}
@@ -270,7 +277,7 @@ public class Evaluation {
 				break;
 			// White piece detected
 			} else if (board.state[i] > 0) {
-				value -= calculateAttackValue(board.whitePieces[board.state[i]].pieceType);
+				value -= calculateAttackValue(board.whitePieces[board.state[i] - 1].pieceType);
 				break;
 			}
 		}
@@ -282,7 +289,7 @@ public class Evaluation {
 				break;
 			// White piece detected
 			} else if (board.state[i] > 0) {
-				value -= calculateAttackValue(board.whitePieces[board.state[i]].pieceType);
+				value -= calculateAttackValue(board.whitePieces[board.state[i] - 1].pieceType);
 				break;
 			}
 		}
@@ -294,7 +301,7 @@ public class Evaluation {
 				break;
 			// White piece detected
 			} else if (board.state[i] > 0) {
-				value -= calculateAttackValue(board.whitePieces[board.state[i]].pieceType);
+				value -= calculateAttackValue(board.whitePieces[board.state[i] - 1].pieceType);
 				break;
 			}
 		}
@@ -348,35 +355,35 @@ public class Evaluation {
 		
 		// This means a black piece is there
 		if (board.state[location - 13] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location - 13] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location - 13] * (-1) - 1].pieceType);
 		} 
 		
 		if (board.state[location - 12] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location - 12] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location - 12] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location - 11] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location - 11] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location - 11] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location - 1] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location - 1] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location - 1] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location + 1] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location + 1] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location + 1] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location + 11] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location + 11] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location + 11] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location + 12] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location + 12] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location + 12] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location + 13] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location + 13] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location + 13] * (-1) - 1].pieceType);
 		}
 		
 		return value;
@@ -396,35 +403,35 @@ public class Evaluation {
 		int value = 0;
 		
 		if (board.state[location + 14] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location + 14] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location + 14] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location + 10] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location + 10] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location + 10] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location + 23] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location + 23] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location + 23] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location + 25] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location + 25] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location + 25] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location - 10] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location - 10] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location - 10] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location - 14] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location - 14] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location - 14] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location - 23] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location - 23] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location - 23] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location - 25] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location - 25] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location - 25] * (-1) - 1].pieceType);
 		}
 		
 		return value;
@@ -434,11 +441,11 @@ public class Evaluation {
 		int value = 0;
 		
 		if (board.state[location + 13] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location + 13] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location + 13] * (-1) - 1].pieceType);
 		}
 		
 		if (board.state[location + 11] < 0) {
-			value += calculateAttackValue(board.blackPieces[board.state[location + 11] * -1].pieceType);
+			value += calculateAttackValue(board.blackPieces[board.state[location + 11] * (-1) - 1].pieceType);
 		}
 		
 		return value;
@@ -456,7 +463,7 @@ public class Evaluation {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
-				value += calculateAttackValue(board.blackPieces[board.state[i] * -1].pieceType);
+				value += calculateAttackValue(board.blackPieces[board.state[i] * (-1) - 1].pieceType);
 				break;
 			}
 		}
@@ -468,7 +475,7 @@ public class Evaluation {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
-				value += calculateAttackValue(board.blackPieces[board.state[i] * -1].pieceType);
+				value += calculateAttackValue(board.blackPieces[board.state[i] * (-1) - 1].pieceType);
 				break;
 			}
 		}
@@ -481,7 +488,7 @@ public class Evaluation {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
-				value += calculateAttackValue(board.blackPieces[board.state[i] * -1].pieceType);
+				value += calculateAttackValue(board.blackPieces[board.state[i] * (-1) - 1].pieceType);
 				break;
 			}
 		}
@@ -493,7 +500,7 @@ public class Evaluation {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
-				value += calculateAttackValue(board.blackPieces[board.state[i] * -1].pieceType);
+				value += calculateAttackValue(board.blackPieces[board.state[i] * (-1) - 1].pieceType);
 				break;
 			}
 		}
@@ -512,7 +519,7 @@ public class Evaluation {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
-				value += calculateAttackValue(board.blackPieces[board.state[i] * -1].pieceType);
+				value += calculateAttackValue(board.blackPieces[board.state[i] * (-1) - 1].pieceType);
 				break;
 			}
 		}
@@ -525,7 +532,7 @@ public class Evaluation {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
-				value += calculateAttackValue(board.blackPieces[board.state[i] * -1].pieceType);
+				value += calculateAttackValue(board.blackPieces[board.state[i] * (-1) - 1].pieceType);
 				break;
 			}
 		}
@@ -537,7 +544,7 @@ public class Evaluation {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
-				value += calculateAttackValue(board.blackPieces[board.state[i] * -1].pieceType);
+				value += calculateAttackValue(board.blackPieces[board.state[i] * (-1) - 1].pieceType);
 				break;
 			}
 		}
@@ -549,7 +556,7 @@ public class Evaluation {
 				break;
 			// Black piece detected
 			} else if (board.state[i] < 0) {
-				value += calculateAttackValue(board.blackPieces[board.state[i] * -1].pieceType);
+				value += calculateAttackValue(board.blackPieces[board.state[i] * (-1) - 1].pieceType);
 				break;
 			}
 		}

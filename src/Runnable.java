@@ -71,11 +71,23 @@ public class Runnable {
 		
 		Board board = new Board();
 		Board aBoard = new Board(board);
-		board.state[77] = 1;
-		board.whitePieces[1].location = 77;
 		
 		System.out.println(Evaluation.eval(board, true));
-		System.out.println(aBoard.whitePieces[0].pieceType);
+		
+		/*
+		HttpURLConnection response;
+		try {
+			response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + gameID + "/209/fcbd8a97/Pa2a4/")).openConnection();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(response.getInputStream()));
+		
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
 	}
 	
 }
