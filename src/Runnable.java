@@ -70,7 +70,11 @@ public class Runnable {
 		} */
 		
 		Board board = new Board();
-		System.out.println(Arrays.toString(board.state));
+		Board aBoard = new Board(board);
+		board.whitePieces[0].pieceType = 150;
+	
+		System.out.println(board.whitePieces[0].pieceType);
+		System.out.println(aBoard.whitePieces[0].pieceType);
 	}
 	
 }

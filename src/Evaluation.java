@@ -9,7 +9,7 @@ public class Evaluation {
 	 * This class is dedicated to the white player, so only white's situation will
 	 * be considered.
 	 */
-	public int eval(Board board) {
+	public int eval(Board board, boolean white) {
 		
 		int evalValue = 0;
 		
@@ -38,10 +38,12 @@ public class Evaluation {
 			}
 		}
 		
-		
-		
-		
-		return evalValue;
+		// If player is White, return as is. Else, return the result reversed
+		if (white) {
+			return evalValue;
+		} else {
+			return evalValue * -1;
+		}
 	}
 	
 	// The hub for determining the potential value of a white piece's attacks

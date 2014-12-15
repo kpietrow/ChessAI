@@ -34,4 +34,28 @@ public class Piece {
 		}
 	}
 	
+	public Piece(int type, int location, boolean active) {
+		this.pieceType = type;
+		this.location = location;
+		this.active = active;
+		
+		/* Assigns the value based on the piece. These values are far from exact, 
+		 * but at least we can handle all piece values from here.
+		 * 
+		 */
+		if (type == 1) {
+			value = 1;
+		} else if (type == 2) {
+			value = 2; 
+		} else if (type == 3) {
+			value = 4;
+		} else if (type == 4) {
+			value = 8;
+		} else if (type == 5) {
+			value = 16;
+		} else if (type == 6) {
+			value = 100;
+		}
+	}
+	
 }

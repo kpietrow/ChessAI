@@ -123,5 +123,31 @@ public class Board {
 		state[116] = -8;
 		
 	}
+	
+	// Copy constructor
+	public Board(Board aBoard) {
+		int[] newState = new int[144];
+		
+		// Copy the board
+		for (int i = 0; i < aBoard.state.length; i++) {
+			newState[i] = aBoard.state[i];
+		}
+		
+		Piece[] wPieces = new Piece[16];
+		Piece[] bPieces = new Piece[16];
+		
+		// Copy the piece lists
+		for (int i = 0; i < aBoard.whitePieces.length; i++) {
+			Piece wPiece = new Piece(aBoard.whitePieces[i].pieceType, aBoard.whitePieces[i].location, aBoard.whitePieces[i].active);
+			wPieces[i] = wPiece;
+			Piece bPiece = new Piece(aBoard.whitePieces[i].pieceType, aBoard.whitePieces[i].location, aBoard.whitePieces[i].active);
+			bPieces[i] = bPiece;
+		}
+		
+		whitePieces = wPieces;
+		blackPieces = bPieces;
+		state = newState;
+		
+	}
 
 }
