@@ -30,24 +30,24 @@ public class ConstructWhiteMove {
 		// Run through list of white moves
 		for (int i = 0; i < root.board.whitePieces.length; i++) {
 			if (root.board.whitePieces[i].pieceType == 6 && root.board.whitePieces[i].active) {
-				findMovesWhiteKing(root);
+				findMovesWhiteKing(root, i + 1);
 			} else if (root.board.whitePieces[i].pieceType == 6 && root.board.whitePieces[i].active) {
-				findMovesWhiteQueen(root);
+				findMovesWhiteQueen(root, i + 1);
 			} else if (root.board.whitePieces[i].pieceType == 6 && root.board.whitePieces[i].active) {
-				findMovesWhiteRook(root);
+				findMovesWhiteRook(root, i + 1);
 			} else if (root.board.whitePieces[i].pieceType == 6 && root.board.whitePieces[i].active) {
-				findMovesWhiteBishop(root);
+				findMovesWhiteBishop(root, i + 1);
 			} else if (root.board.whitePieces[i].pieceType == 6 && root.board.whitePieces[i].active) {
-				findMovesWhiteKnight(root);
+				findMovesWhiteKnight(root, i + 1);
 			} else if (root.board.whitePieces[i].pieceType == 6 && root.board.whitePieces[i].active) {
-				findMovesWhitePawn(root);
+				findMovesWhitePawn(root, i + 1);
 			}
 		}
 		
 	}
 	
 	// Examines all of the possible moves of a White King
-	public static void findMovesWhiteKing(Node root) {
+	public static void findMovesWhiteKing(Node root, int whitePiecesArrayPos) {
 		
 		// Get the location now
 		int location = root.board.whitePieces[0].location;
@@ -66,19 +66,29 @@ public class ConstructWhiteMove {
 					root.board.blackPieces[root.board.state[location + moves[i]] * (-1) - 1].active = false;
 				}
 				
-				child = createBranchNode(root, 1, location, location + moves[i]);
+				child = createBranchNode(root, whitePiecesArrayPos, location, location + moves[i]);
 				findMovesBlack(child);
 			}
 		}
 		
 	}
 	
-	public static void findMovesWhiteQueen(Node root) {
+	public static void findMovesWhiteQueen(Node root, int whitePiecesArrayPos) {
 		
-		findMovesWhiteDiagonal(root, 2);
-		findMovesWhiteHorizontal(root, 2);
+		findMovesWhiteDiagonal(root, whitePiecesArrayPos);
+		findMovesWhiteHorizontal(root, whitePiecesArrayPos);
 		
 	}
+	
+	public static void findMovesWhiteRook(Node root, int whitePiecesArrayPos) {
+		findMovesWhiteDiagonal(root, whitePiecesArrayPos);
+	}
+	
+	public static void findMovesWhiteBishop(Node root, int whitePiecesArrayPos) {
+		findMovesWhiteHorizontal(root, whitePiecesArrayPos);
+	}
+	
+	
 	
 	public static void findMovesWhiteDiagonal(Node root, int whitePiecesArrayPos) {
 
