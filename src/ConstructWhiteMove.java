@@ -47,99 +47,28 @@ public class ConstructWhiteMove {
 	}
 	
 	// Examines all of the possible moves of a White King
-	public static void findMovesWhiteKing(Node node) {
+	public static void findMovesWhiteKing(Node root) {
 		
 		// Get the location now
-		int location = node.board.whitePieces[0].location;
+		int location = root.board.whitePieces[0].location;
 		
 		// Instantiate this now
 		Node child;
 		
-		// This means a black piece is there, or the space is empty
-		if (node.board.state[location - 13] <= 0) {
-			if (node.board.state[location - 13] != 0) {
-				node.board.blackPieces[node.board.state[location - 13] * (-1) - 1].active = false;
-			}
-			
-			child = createBranchNode(node, 1, location, location - 13);
-			
-			findMovesBlack(child);
-		} 
+		// Possible moves for King
+		int[] moves = new int[] {-13, -12, -11, -1, 1, 11, 12, 13};
 		
-		if (node.board.state[location - 12] <= 0) {			
-			if (node.board.state[location - 12] != 0) {
-				node.board.blackPieces[node.board.state[location - 12] * (-1) - 1].active = false;
+		for (int i = 0; i < moves.length; i++) {
+			// Black or empty
+			if (root.board.state[location + i] <= 0) {
+				// If black, we have to deactivate piece sitting in new location
+				if (root.board.state[location + moves[i]] != 0) {
+					root.board.blackPieces[root.board.state[location + moves[i]] * (-1) - 1].active = false;
+				}
+				
+				child = createBranchNode(root, 1, location, location + moves[i]);
+				findMovesBlack(child);
 			}
-			
-			child = createBranchNode(node, 1, location, location - 12);
-			
-			findMovesBlack(child);			
-		}
-		
-		if (node.board.state[location - 11] <= 0) {
-			if (node.board.state[location - 11] != 0) {
-				node.board.blackPieces[node.board.state[location - 11] * (-1) - 1].active = false;
-			}
-			
-			child = createBranchNode(node, 1, location, location - 11);
-			
-			findMovesBlack(child);		
-			
-		}
-		
-		if (node.board.state[location - 1] <= 0) {
-			if (node.board.state[location - 1] != 0) {
-				node.board.blackPieces[node.board.state[location - 1] * (-1) - 1].active = false;
-			}
-			
-			child = createBranchNode(node, 1, location, location - 1);
-			
-			findMovesBlack(child);		
-			
-		}
-		
-		if (node.board.state[location + 1] <= 0) {
-			if (node.board.state[location + 1] != 0) {
-				node.board.blackPieces[node.board.state[location + 1] * (-1) - 1].active = false;
-			}
-			
-			child = createBranchNode(node, 1, location, location + 1);
-			
-			findMovesBlack(child);		
-			
-		}
-		
-		if (node.board.state[location + 11] <= 0) {
-			if (node.board.state[location + 11] != 0) {
-				node.board.blackPieces[node.board.state[location + 11] * (-1) - 1].active = false;
-			}
-			
-			child = createBranchNode(node, 1, location, location + 11);
-
-			findMovesBlack(child);		
-			
-		}
-		
-		if (node.board.state[location + 12] <= 0) {
-			if (node.board.state[location + 12] != 0) {
-				node.board.blackPieces[node.board.state[location + 12] * (-1) - 1].active = false;
-			}
-			
-			child = createBranchNode(node, 1, location, location + 12);
-
-			
-			findMovesBlack(child);		
-			
-		}
-		
-		if (node.board.state[location + 13] <= 0) {
-			if (node.board.state[location + 13] != 0) {
-				node.board.blackPieces[node.board.state[location + 13] * (-1) - 1].active = false;
-			}
-			
-			child = createBranchNode(node, 1, location, location + 13);
-			
-			findMovesBlack(child);		
 		}
 		
 	}
