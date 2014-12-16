@@ -170,7 +170,98 @@ public class ConstructWhiteMove {
 		}
 	}
 	
-	public static void findMovesWhiteHorizontal(Node root, int arrayPos) {
+	public static void findMovesWhiteHorizontal(Node root, int whitePiecesArrayPos) {
+		
+		Node child;
+		
+		int location = root.board.whitePieces[whitePiecesArrayPos].location;
+		
+		
+		// To the right 
+		// (Limit is 118, because 117 is the absolute highest that the board goes)
+		for (int i = location + 1; i < 118; i++) {
+			// The jig is up! Friendly piece or boundary detected
+			if (root.board.state[i] > 0) {
+				break;
+			// Black piece detected
+			} else if (root.board.state[i] < 0) {
+				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
+				child = createBranchNode(root, whitePiecesArrayPos, location, i);
+
+				findMovesBlack(child);
+				break;
+			
+			// Blank space
+			} else {
+				child = createBranchNode(root, whitePiecesArrayPos, location, i);
+				
+				findMovesBlack(child);
+			}
+		}
+		
+		// To the left 
+		// (Limit is 25, because 26 is the absolute lowest that the board goes)
+		for (int i = location - 1; i > 25; i--) {
+			// The jig is up! Friendly piece or boundary detected
+			if (root.board.state[i] > 0) {
+				break;
+			// Black piece detected
+			} else if (root.board.state[i] < 0) {
+				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
+				child = createBranchNode(root, whitePiecesArrayPos, location, i);
+
+				findMovesBlack(child);
+				break;
+			
+			// Blank space
+			} else {
+				child = createBranchNode(root, whitePiecesArrayPos, location, i);
+				
+				findMovesBlack(child);
+			}
+		}
+		
+		// Up 
+		for (int i = location + 12; i < 118; i += 12) {
+			// The jig is up! Friendly piece or boundary detected
+			if (root.board.state[i] > 0) {
+				break;
+			// Black piece detected
+			} else if (root.board.state[i] < 0) {
+				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
+				child = createBranchNode(root, whitePiecesArrayPos, location, i);
+
+				findMovesBlack(child);
+				break;
+			
+			// Blank space
+			} else {
+				child = createBranchNode(root, whitePiecesArrayPos, location, i);
+				
+				findMovesBlack(child);
+			}
+		}
+		
+		// Down 
+		for (int i = location - 12; i > 25; i -= 12) {
+			// The jig is up! Friendly piece or boundary detected
+			if (root.board.state[i] > 0) {
+				break;
+			// Black piece detected
+			} else if (root.board.state[i] < 0) {
+				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
+				child = createBranchNode(root, whitePiecesArrayPos, location, i);
+
+				findMovesBlack(child);
+				break;
+			
+			// Blank space
+			} else {
+				child = createBranchNode(root, whitePiecesArrayPos, location, i);
+				
+				findMovesBlack(child);
+			}
+		}
 		
 	}
 	
