@@ -9,7 +9,8 @@ public class ConstructBlackMove {
 		// Find the best move
 		Node root = findBlackMoves(board);
 		
-		/* System.out.println("size: " + root.children.size() + ", evalValue: " + root.evalValue + ", best: " + root.bestChild.path);
+		/*
+		System.out.println("size: " + root.children.size() + ", evalValue: " + root.evalValue + ", best: " + root.bestChild.path);
 		
 		for (int i = 0; i < root.children.size(); i++) {
 			System.out.println("\t" + root.children.get(i).path + " - " + root.children.get(i).evalValue);

@@ -20,8 +20,6 @@ import org.json.JSONObject;
 public class Runnable {
 	public static void main(String args[]) {
 		
-		/*
-		
 		// Set scanner to get game number when program started
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Game number: ");
@@ -29,10 +27,12 @@ public class Runnable {
 	    
 	    System.out.println("team color (1 for white, 2 for black): ");
 	    int team = sc.nextInt();
+	    sc.close();
 	    
 	    
 	    // Open up the query connection
 		HttpURLConnection query = null;
+		HttpURLConnection response = null;
 		
 		// Establish the buffer reader
 		BufferedReader reader = null;
@@ -42,53 +42,108 @@ public class Runnable {
 		// JSON Object
 		JSONObject json = null;
 		
-		
-		int counter = 0;
-		
-		while (counter < 2) {
-		
-			try {
-				query = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/poll/" + input + "/209/fcbd8a97/")).openConnection();
-				reader = new BufferedReader(new InputStreamReader(query.getInputStream()));
-				jsonString = reader.readLine();
-				json = new JSONObject(jsonString);
-				
-				System.out.println(json);
-				
-			
-			
-			} catch (MalformedURLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} */
-		Test.test();
+		// Board object, initial state
 		Board board = new Board();
 		
-		Node root = ConstructWhiteMove.run(board);
+		// If we can take our turn or not
+		boolean ready;
 		
-		System.out.println("done!");
+		// The root Node
+		Node root = null;
 		
-		/*
-		HttpURLConnection response;
-		try {
-			response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + gameID + "/209/fcbd8a97/Pa2a4/")).openConnection();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(response.getInputStream()));
-		
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// We're the White side
+		if (team == 1) {
+			while (true) {
+			
+				try {
+					// Query to see if it's our turn yet
+					query = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/poll/" + input + "/209/fcbd8a97/")).openConnection();
+					reader = new BufferedReader(new InputStreamReader(query.getInputStream()));
+					jsonString = reader.readLine();
+					json = new JSONObject(jsonString);
+					
+					ready = (boolean) json.get("ready");
+					
+					if (ready) {
+						
+						// Make changes to our board to reflect opponent's move
+						InterpretMove.interpret((String) json.get("lastmove"), board);
+						
+						// Construct our next move
+						root = ConstructWhiteMove.run(board);
+						
+						// Send the response to the server
+						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
+						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						
+						System.out.println(json);
+					}
+					
+				// Now... Sleep!
+				Thread.sleep(5000);
+				
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+		// We're the Black side
+		} else {
+			while (true) {
+				
+				try {
+					// Query to see if it's our turn yet
+					query = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/poll/" + input + "/209/fcbd8a97/")).openConnection();
+					reader = new BufferedReader(new InputStreamReader(query.getInputStream()));
+					jsonString = reader.readLine();
+					json = new JSONObject(jsonString);
+					
+					ready = (boolean) json.get("ready");
+					
+					if (ready) {
+						
+						// Make changes to our board to reflect opponent's move
+						InterpretMove.interpret((String) json.get("lastmove"), board);
+						
+						// Construct our next move
+						root = ConstructBlackMove.run(board);
+						
+						// Send the response to the server
+						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
+						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						
+						System.out.println(json);
+					}
+					
+				// Now... Sleep!
+				Thread.sleep(5000);
+				
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
-		*/
 	}
 	
 }
