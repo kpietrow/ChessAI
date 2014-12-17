@@ -401,10 +401,181 @@ public class ConstructWhiteMove {
 		}
 	}
 	
-	public static void findMovesBlackQueen(Node root, int whitePiecesArrayPos) {
+	public static void findMovesBlackQueen(Node branch, int blackPiecesArrayPos) {
+		findMovesBlackDiagonal(branch, blackPiecesArrayPos);
+		findMovesBlackHorizontal(branch, blackPiecesArrayPos);
+	}
+	
+	public static void findMovesBlackRook(Node branch, int blackPiecesArrayPos) {
+		findMovesWhiteDiagonal(branch, blackPiecesArrayPos);
+	}
+	
+	public static void findMovesBlackBishop(Node branch, int blackPiecesArrayPos) {
+		findMovesWhiteHorizontal(branch, blackPiecesArrayPos);
+	}
+	
+	public static void findMovesWhiteKnight(Node root, int whitePiecesArrayPos) {
+		// Get the location now
+		int location = root.board.whitePieces[whitePiecesArrayPos - 1].location;
 		
-		findMovesWhiteDiagonal(root, whitePiecesArrayPos);
-		findMovesWhiteHorizontal(root, whitePiecesArrayPos);
+		// Instantiate this now
+		Node child;
+		
+		// Possible moves for Knight
+		int[] moves = new int[] {14, 10, 23, 25, -10, -14, -23, -25};
+		
+		for (int i = 0; i < moves.length; i++) {
+			// Black or empty
+			if (root.board.state[location + moves[i]] <= 0) {
+				child = createBranchNode(root, whitePiecesArrayPos, location, location + moves[i]);
+				findMovesBlack(child);
+			}
+		}
+	}
+	
+	public static void findMovesBlackDiagonal(Node branch, int blackPiecesArrayPos) {
+
+		int location = branch.board.blackPieces[blackPiecesArrayPos - 1].location;
+		
+		// Up and to the right 
+		// (Limit is 118, because 117 is the absolute highest that the board goes)
+		for (int i = location + 13; i < 118; i += 13) {
+			// The jig is up! Friendly piece or boundary detected
+			if (branch.board.state[i] < 0 || branch.board.state[i] == 99) {
+				break;
+				// Black piece or blank space
+			} else {
+				createLeafNode(branch, blackPiecesArrayPos, location, i);
+				
+				// Break if White piece
+				if (branch.board.state[i] > 0) {
+					break;
+				}
+			}
+		}
+		
+		// Up and to the left 
+		for (int i = location + 11; i < 118; i += 11) {
+			// The jig is up! Friendly piece or boundary detected
+			if (branch.board.state[i] < 0 || branch.board.state[i] == 99) {
+				break;
+				// Black piece or blank space
+			} else {
+				createLeafNode(branch, blackPiecesArrayPos, location, i);
+				
+				// Break if White piece
+				if (branch.board.state[i] > 0) {
+					break;
+				}
+			}
+		}
+		
+		// Down and to the right 
+		// (Limit is 25, because 26 is the absolute lowest that the board goes)
+		for (int i = location - 11; i > 25; i -= 11) {
+			// The jig is up! Friendly piece or boundary detected
+			if (branch.board.state[i] < 0 || branch.board.state[i] == 99) {
+				break;
+				// Black piece or blank space
+			} else {
+				createLeafNode(branch, blackPiecesArrayPos, location, i);
+				
+				// Break if White piece
+				if (branch.board.state[i] > 0) {
+					break;
+				}
+			}
+		}
+		
+		// Down and to the left 
+		for (int i = location - 13; i > 25; i -= 13) {
+			// The jig is up! Friendly piece or boundary detected
+			if (branch.board.state[i] < 0 || branch.board.state[i] == 99) {
+				break;
+				// Black piece or blank space
+			} else {
+				createLeafNode(branch, blackPiecesArrayPos, location, i);
+				
+				// Break if White piece
+				if (branch.board.state[i] > 0) {
+					break;
+				}
+			}
+		}
+	}
+	
+	public static void findMovesBlackHorizontal(Node branch, int blackPiecesArrayPos) {
+		
+		Node child;
+		
+		int location = branch.board.blackPieces[blackPiecesArrayPos - 1].location;
+		
+		
+		// To the right 
+		// (Limit is 118, because 117 is the absolute highest that the board goes)
+		for (int i = location + 1; i < 118; i++) {
+			// The jig is up! Friendly piece or boundary detected
+			if (branch.board.state[i] < 0 || branch.board.state[i] == 99) {
+				break;
+				// Black piece or blank space
+			} else {
+				createLeafNode(branch, blackPiecesArrayPos, location, i);
+				
+				// Break if White piece
+				if (branch.board.state[i] > 0) {
+					break;
+				}
+			}
+		}
+		
+		// To the left 
+		// (Limit is 25, because 26 is the absolute lowest that the board goes)
+		for (int i = location - 1; i > 25; i--) {
+			// The jig is up! Friendly piece or boundary detected
+			if (branch.board.state[i] < 0 || branch.board.state[i] == 99) {
+				break;
+				// Black piece or blank space
+			} else {
+				createLeafNode(branch, blackPiecesArrayPos, location, i);
+				
+				// Break if White piece
+				if (branch.board.state[i] > 0) {
+					break;
+				}
+			}
+		}
+		
+		// Up 
+		for (int i = location + 12; i < 118; i += 12) {
+			// The jig is up! Friendly piece or boundary detected
+			if (branch.board.state[i] < 0 || branch.board.state[i] == 99) {
+				break;
+				// Black piece or blank space
+			} else {
+				createLeafNode(branch, blackPiecesArrayPos, location, i);
+				
+				// Break if White piece
+				if (branch.board.state[i] > 0) {
+					break;
+				}
+			}
+		}
+		
+		// Down 
+		for (int i = location - 12; i > 25; i -= 12) {
+			// The jig is up! Friendly piece or boundary detected
+			if (branch.board.state[i] < 0 || branch.board.state[i] == 99) {
+				break;
+				// Black piece or blank space
+			} else {
+				createLeafNode(branch, blackPiecesArrayPos, location, i);
+				
+				// Break if White piece
+				if (branch.board.state[i] > 0) {
+					break;
+				}
+			}
+		}
 		
 	}
 	
@@ -415,7 +586,7 @@ public class ConstructWhiteMove {
 		Node child = new Node(new Board(branch.board), "branch", branch);
 		child.createPath(branch.board.blackPieces[blackPiecesArrayPos - 1].pieceType, oldLocation, newLocation);
 		
-		if (child.board.state[newLocation] < 0) {
+		if (child.board.state[newLocation] > 0 && child.board.state[newLocation] != 99) {
 			child.board.whitePieces[child.board.state[newLocation] - 1].active = false;
 		}
 		
