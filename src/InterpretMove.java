@@ -15,7 +15,20 @@ public class InterpretMove {
 				
 		adjustBoard(board, firstPos, secondPos);
 		
-		
+		// Test code in case Pawn makes it all the way
+		if (input.substring(0, 1).equals("P")) {
+			
+			// If either of these, it made it!
+			if (secondPos >= 110) {
+				board.whitePieces[board.state[secondPos] - 1].pieceType = 5;
+				board.whitePieces[board.state[secondPos] - 1].value = 40;
+				
+			} else if (secondPos <= 33){
+				board.blackPieces[board.state[secondPos] * (-1) - 1].pieceType = 5;
+				board.blackPieces[board.state[secondPos] * (-1) - 1].value = 40;
+			}
+			
+		}
 		
 		
 	}
@@ -71,7 +84,6 @@ public class InterpretMove {
 			board.blackPieces[board.state[firstPos] * (-1) - 1].location = secondPos;
 			board.state[firstPos] = 0;
 		}
-		
 		
 	}
 	

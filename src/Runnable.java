@@ -1,13 +1,10 @@
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.json.JSONException;
@@ -54,6 +51,9 @@ public class Runnable {
 		// The last move
 		String lastMove = "";
 		
+		// So timeouts don't get too great
+		int timeout = 0;
+		
 		// We're the White side
 		if (team == 1) {
 			int index = 0;
@@ -72,7 +72,7 @@ public class Runnable {
 					moveNumber = json.getInt("lastmovenumber");
 					System.out.println("LOOP: " + jsonString);
 					
-					if (ready && index == moveNumber) {
+					if ((ready && index == moveNumber)) {
 						
 						lastMove = (String) json.get("lastmove");
 						
@@ -92,11 +92,33 @@ public class Runnable {
 						// Send the response to the server
 						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
 						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						System.out.println("RESPONSE: " + sender.readLine());
+
 						response.disconnect();
 						sender.close();
 						
 						System.out.println("end");
 						index += 2;
+						
+					} else if (timeout > 10) {
+						System.out.println("TIMEOUT EXCEEDED");
+						timeout = 0;
+						Random rand = new Random();
+						
+						root = ConstructWhiteMove.run(board);
+						int n = rand.nextInt(root.children.size());
+						
+						// Not the best idea, but we have to do something here
+						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.children.get(n).path + "/")).openConnection();
+						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						System.out.println("RESPONSE: " + sender.readLine());
+
+						response.disconnect();
+						sender.close();
+						
+						
+					} else {
+						timeout++;
 					}
 					
 				// Now... Sleep!
@@ -139,6 +161,8 @@ public class Runnable {
 					ready = (boolean) json.get("ready");
 					moveNumber = json.getInt("lastmovenumber");
 					
+					System.out.println("LOOP: " + jsonString);
+
 					
 					if (ready && index == moveNumber) {
 						
@@ -152,14 +176,39 @@ public class Runnable {
 						// Construct our next move
 						root = ConstructBlackMove.run(board);
 						
+						// Interpret our own move
+						InterpretMove.interpret(root.bestChild.path, board);
+						
+						System.out.println("root: " + root.bestChild.path);
+						
 						// Send the response to the server
 						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
 						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						System.out.println("RESPONSE: " + sender.readLine());
 						response.disconnect();
 						sender.close();
 						
-						System.out.println(json);
+						System.out.println("end");
 						index += 2;
+						
+					} else if (timeout > 10) {
+						System.out.println("TIMEOUT EXCEEDED");
+						timeout = 0;
+						Random rand = new Random();
+						
+						root = ConstructWhiteMove.run(board);
+						int n = rand.nextInt(root.children.size());
+						
+						// Not the best idea, but we have to do something here
+						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.children.get(n).path + "/")).openConnection();
+						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						System.out.println("RESPONSE: " + sender.readLine());
+						response.disconnect();
+						sender.close();
+						
+						
+					} else {
+						timeout++;
 					}
 					
 				// Now... Sleep!

@@ -401,7 +401,7 @@ public class ConstructBlackMove {
 		for (int i = 0; i < attacks.length; i++) {
 			// White piece
 			if (root.board.state[location + attacks[i]] > 0 && root.board.state[location + attacks[i]] != 99) {	
-				child = createBranchNode(root, blackPiecesArrayPos, location, location + moves[i]);	
+				child = createBranchNode(root, blackPiecesArrayPos, location, location + attacks[i]);	
 				findWhiteMoves(child);
 			}
 		}
@@ -570,7 +570,7 @@ public class ConstructBlackMove {
 		child.createPath(child.board.whitePieces[whitePiecesArrayPos - 1].pieceType, oldLocation, newLocation);
 		
 		if (child.board.state[newLocation] < 0) {
-			child.board.blackPieces[child.board.state[newLocation] - 1 * (-1) - 1].active = false;
+			child.board.blackPieces[child.board.state[newLocation] * (-1) - 1].active = false;
 		}
 		
 		child.board.whitePieces[whitePiecesArrayPos - 1].location = newLocation;

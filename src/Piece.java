@@ -20,17 +20,17 @@ public class Piece {
 		 * 
 		 */
 		if (type == 1) {
-			value = 1;
+			value = 2;
 		} else if (type == 2) {
-			value = 8; 
+			value = 12; 
 		} else if (type == 3) {
-			value = 10;
+			value = 14;
 		} else if (type == 4) {
-			value = 16;
+			value = 18;
 		} else if (type == 5) {
-			value = 30;
+			value = 40;
 		} else if (type == 6) {
-			value = 100;
+			value = 300;
 		}
 	}
 	
@@ -44,17 +44,17 @@ public class Piece {
 		 * 
 		 */
 		if (type == 1) {
-			value = 1;
-		} else if (type == 2) {
-			value = 2; 
-		} else if (type == 3) {
 			value = 4;
+		} else if (type == 2) {
+			value = 12; 
+		} else if (type == 3) {
+			value = 14;
 		} else if (type == 4) {
-			value = 8;
+			value = 18;
 		} else if (type == 5) {
-			value = 16;
+			value = 40;
 		} else if (type == 6) {
-			value = 100;
+			value = 300;
 		}
 	}
 	
