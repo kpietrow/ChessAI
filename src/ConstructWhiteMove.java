@@ -23,6 +23,10 @@ public class ConstructWhiteMove {
 		
 		for (int i = 0; i < root.children.size(); i++) {
 			System.out.println("\t" + root.children.get(i).path);
+			for (int x = 50; x < 58; x++) {
+				System.out.println("\t\t" + root.children.get(i).board.state[x]);
+			}
+			
 		}
 		
 		
@@ -71,12 +75,8 @@ public class ConstructWhiteMove {
 		for (int i = 0; i < moves.length; i++) {
 			// Black or empty
 			if (root.board.state[location + moves[i]] <= 0) {
-				// If black, we have to deactivate piece sitting in new location
-				if (root.board.state[location + moves[i]] != 0) {
-					root.board.blackPieces[root.board.state[location + moves[i]] * (-1) - 1].active = false;
-				}
 				
-				child = createBranchNode(root, whitePiecesArrayPos, location, location + moves[i]);
+				child = createBranchNode(root, whitePiecesArrayPos, location, location + moves[i]);	
 				findMovesBlack(child);
 			}
 		}
@@ -111,11 +111,6 @@ public class ConstructWhiteMove {
 		for (int i = 0; i < moves.length; i++) {
 			// Black or empty
 			if (root.board.state[location + moves[i]] <= 0) {
-				// If black, we have to deactivate piece sitting in new location
-				if (root.board.state[location + moves[i]] != 0) {
-					root.board.blackPieces[root.board.state[location + moves[i]] * (-1) - 1].active = false;
-				}
-				
 				child = createBranchNode(root, whitePiecesArrayPos, location, location + moves[i]);
 				findMovesBlack(child);
 			}
@@ -145,11 +140,8 @@ public class ConstructWhiteMove {
 		int[] attacks = new int[] {11, 13};
 		
 		for (int i = 0; i < attacks.length; i++) {
-			// Black or empty
-			if (root.board.state[location + attacks[i]] < 0) {
-				// Black, we have to deactivate piece sitting in new location
-				root.board.blackPieces[root.board.state[location + attacks[i]] * (-1) - 1].active = false;
-								
+			// Black piece
+			if (root.board.state[location + attacks[i]] < 0) {	
 				child = createBranchNode(root, whitePiecesArrayPos, location, location + attacks[i]);
 				findMovesBlack(child);
 			}
@@ -171,18 +163,16 @@ public class ConstructWhiteMove {
 			// The jig is up! Friendly piece or boundary detected
 			if (root.board.state[i] > 0) {
 				break;
-			// Black piece detected
-			} else if (root.board.state[i] < 0) {
-				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
-				child = createBranchNode(root, whitePiecesArrayPos, location, i);
-
-				findMovesBlack(child);
-				break;
-			// Blank space
+				// Black piece or blank space
 			} else {
 				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 
 				findMovesBlack(child);
+				
+				// Break if Black piece
+				if (root.board.state[i] < 0) {
+					break;
+				}
 			}
 		}
 		
@@ -191,18 +181,16 @@ public class ConstructWhiteMove {
 			// The jig is up! Friendly piece or boundary detected
 			if (root.board.state[i] > 0) {
 				break;
-			// Black piece detected
-			} else if (root.board.state[i] < 0) {
-				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
-				child = createBranchNode(root, whitePiecesArrayPos, location, i);
-
-				findMovesBlack(child);
-				break;
-			// Blank space
+				// Black piece or blank space
 			} else {
 				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 
 				findMovesBlack(child);
+				
+				// Break if Black piece
+				if (root.board.state[i] < 0) {
+					break;
+				}
 			}
 		}
 		
@@ -212,18 +200,16 @@ public class ConstructWhiteMove {
 			// The jig is up! Friendly piece or boundary detected
 			if (root.board.state[i] > 0) {
 				break;
-			// Black piece detected
-			} else if (root.board.state[i] < 0) {
-				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
-				child = createBranchNode(root, whitePiecesArrayPos, location, i);
-
-				findMovesBlack(child);
-				break;
-			// Blank space
+				// Black piece or blank space
 			} else {
 				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 
 				findMovesBlack(child);
+				
+				// Break if Black piece
+				if (root.board.state[i] < 0) {
+					break;
+				}
 			}
 		}
 		
@@ -232,18 +218,16 @@ public class ConstructWhiteMove {
 			// The jig is up! Friendly piece or boundary detected
 			if (root.board.state[i] > 0) {
 				break;
-			// Black piece detected
-			} else if (root.board.state[i] < 0) {
-				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
+				// Black piece or blank space
+			} else {
 				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 
 				findMovesBlack(child);
-				break;
-			// Blank space
-			} else {
-				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 				
-				findMovesBlack(child);
+				// Break if Black piece
+				if (root.board.state[i] < 0) {
+					break;
+				}
 			}
 		}
 	}
@@ -261,19 +245,16 @@ public class ConstructWhiteMove {
 			// The jig is up! Friendly piece or boundary detected
 			if (root.board.state[i] > 0) {
 				break;
-			// Black piece detected
-			} else if (root.board.state[i] < 0) {
-				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
+				// Black piece or blank space
+			} else {
 				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 
 				findMovesBlack(child);
-				break;
-			
-			// Blank space
-			} else {
-				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 				
-				findMovesBlack(child);
+				// Break if Black piece
+				if (root.board.state[i] < 0) {
+					break;
+				}
 			}
 		}
 		
@@ -283,19 +264,16 @@ public class ConstructWhiteMove {
 			// The jig is up! Friendly piece or boundary detected
 			if (root.board.state[i] > 0) {
 				break;
-			// Black piece detected
-			} else if (root.board.state[i] < 0) {
-				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
+				// Black piece or blank space
+			} else {
 				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 
 				findMovesBlack(child);
-				break;
-			
-			// Blank space
-			} else {
-				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 				
-				findMovesBlack(child);
+				// Break if Black piece
+				if (root.board.state[i] < 0) {
+					break;
+				}
 			}
 		}
 		
@@ -304,19 +282,16 @@ public class ConstructWhiteMove {
 			// The jig is up! Friendly piece or boundary detected
 			if (root.board.state[i] > 0) {
 				break;
-			// Black piece detected
-			} else if (root.board.state[i] < 0) {
-				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
+				// Black piece or blank space
+			} else {
 				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 
 				findMovesBlack(child);
-				break;
-			
-			// Blank space
-			} else {
-				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 				
-				findMovesBlack(child);
+				// Break if Black piece
+				if (root.board.state[i] < 0) {
+					break;
+				}
 			}
 		}
 		
@@ -325,19 +300,16 @@ public class ConstructWhiteMove {
 			// The jig is up! Friendly piece or boundary detected
 			if (root.board.state[i] > 0) {
 				break;
-			// Black piece detected
-			} else if (root.board.state[i] < 0) {
-				root.board.blackPieces[root.board.state[i] * (-1) - 1].active = false;
+			// Black piece or blank space
+			} else {
 				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 
 				findMovesBlack(child);
-				break;
-			
-			// Blank space
-			} else {
-				child = createBranchNode(root, whitePiecesArrayPos, location, i);
 				
-				findMovesBlack(child);
+				// Break if Black piece
+				if (root.board.state[i] < 0) {
+					break;
+				}
 			}
 		}
 		
@@ -346,18 +318,48 @@ public class ConstructWhiteMove {
 	// Creates a White branch node
 	public static Node createBranchNode(Node root, int whitePiecesArrayPos, int oldLocation, int newLocation) {
 				
-		root.board.whitePieces[whitePiecesArrayPos - 1].location = newLocation;
-		root.board.state[oldLocation] = 0;
-		root.board.state[newLocation] = whitePiecesArrayPos;
 		Node child = new Node(new Board(root.board), "branch", root);
 		child.createPath(root.board.whitePieces[whitePiecesArrayPos - 1].pieceType, oldLocation, newLocation);
+		
+		if (child.board.state[newLocation] < 0) {
+			child.board.blackPieces[child.board.state[newLocation] * (-1) - 1].active = false;
+		}
+		
+		child.board.whitePieces[whitePiecesArrayPos - 1].location = newLocation;
+		child.board.state[oldLocation] = 0;
+		child.board.state[newLocation] = whitePiecesArrayPos;
 		
 		root.children.add(child);
 		
 		return child;
 	}
 	
+	/**********************************************************************************
+	 * Here, we move into the generation of the Black leaf nodes
+	 * 
+	 */
+	
+	
 	public static void findMovesBlack(Node branch) {
+		
+		
+		
 		return;
 	}
+	
+	// Creates a Black leaf node
+		public static Node createLeafNode(Node branch, int blackPiecesArrayPos, int oldLocation, int newLocation) {
+					
+			branch.board.whitePieces[blackPiecesArrayPos - 1].location = newLocation;
+			branch.board.state[oldLocation] = 0;
+			branch.board.state[newLocation] = blackPiecesArrayPos;
+			Node child = new Node(new Board(branch.board), "branch", branch);
+			child.createPath(branch.board.whitePieces[blackPiecesArrayPos - 1].pieceType, oldLocation, newLocation);
+			
+			int eval = Evaluation.eval(child.board, false);
+			
+			branch.children.add(child);
+			
+			return child;
+		}
 }
