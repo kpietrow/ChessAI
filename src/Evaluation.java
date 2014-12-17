@@ -567,17 +567,17 @@ public class Evaluation {
 	
 	public static int calculateAttackValue(int pieceType) {
 		if (pieceType == 1) {
-			return 2;
+			return 1;
 		} else if (pieceType == 2) {
-			return 8;
+			return 6;
 		} else if (pieceType == 3) {
-			return 10;
+			return 8;
 		} else if (pieceType == 4) {
-			return 12;
+			return 9;
 		} else if (pieceType == 5) {
-			return 14;
+			return 12;
 		} else if (pieceType == 6) {
-			return 18;
+			return 15;
 		}
 		
 		return 0;
