@@ -339,27 +339,60 @@ public class ConstructWhiteMove {
 	 * 
 	 */
 	
-	
+	// Finds Black side moves to form leaf nodes
 	public static void findMovesBlack(Node branch) {
 		
-		
-		
+		// Run through list of white moves
+		for (int i = 0; i < branch.board.blackPieces.length; i++) {
+			if (branch.board.blackPieces[i].pieceType == 6 && branch.board.blackPieces[i].active) {
+				findMovesWhiteKing(branch, i + 1);
+			} else if (branch.board.blackPieces[i].pieceType == 5 && branch.board.blackPieces[i].active) {
+				findMovesWhiteQueen(branch, i + 1);
+			} else if (branch.board.blackPieces[i].pieceType == 4 && branch.board.blackPieces[i].active) {
+				findMovesWhiteRook(branch, i + 1);
+			} else if (branch.board.blackPieces[i].pieceType == 3 && branch.board.blackPieces[i].active) {
+				findMovesWhiteBishop(branch, i + 1);
+			} else if (branch.board.blackPieces[i].pieceType == 2 && branch.board.blackPieces[i].active) {
+				findMovesWhiteKnight(branch, i + 1);
+			} else if (branch.board.blackPieces[i].pieceType == 1 && branch.board.blackPieces[i].active) {
+				findMovesWhitePawn(branch, i + 1);
+			}
+		}
 		return;
 	}
 	
 	// Creates a Black leaf node
-		public static Node createLeafNode(Node branch, int blackPiecesArrayPos, int oldLocation, int newLocation) {
-					
-			branch.board.whitePieces[blackPiecesArrayPos - 1].location = newLocation;
-			branch.board.state[oldLocation] = 0;
-			branch.board.state[newLocation] = blackPiecesArrayPos;
-			Node child = new Node(new Board(branch.board), "branch", branch);
-			child.createPath(branch.board.whitePieces[blackPiecesArrayPos - 1].pieceType, oldLocation, newLocation);
-			
-			int eval = Evaluation.eval(child.board, false);
-			
-			branch.children.add(child);
-			
-			return child;
+	public static Node createLeafNode(Node branch, int blackPiecesArrayPos, int oldLocation, int newLocation) {
+				
+		// Create the new node
+		Node child = new Node(new Board(branch.board), "branch", branch);
+		child.createPath(branch.board.blackPieces[blackPiecesArrayPos - 1].pieceType, oldLocation, newLocation);
+		
+		if (child.board.state[newLocation] < 0) {
+			child.board.whitePieces[child.board.state[newLocation] - 1].active = false;
 		}
+		
+		child.board.blackPieces[blackPiecesArrayPos - 1].location = newLocation;
+		child.board.state[oldLocation] = 0;
+		child.board.state[newLocation] = blackPiecesArrayPos;
+		
+		// Calculate and assign evaluation value
+		int eval = Evaluation.eval(child.board, true);
+		child.evalValue = eval;
+		
+		// See if it can become branch's new favorite node (for evalValue)
+		if (branch.bestChild == null) {
+			branch.bestChild = child;
+			branch.evalValue = eval;
+		} else {
+			if (eval > branch.evalValue) {
+				branch.evalValue = eval;
+				branch.bestChild = child;
+			}
+		}
+		
+		branch.children.add(child);
+		
+		return child;
+	}
 }
