@@ -569,15 +569,15 @@ public class Evaluation {
 		if (pieceType == 1) {
 			return 2;
 		} else if (pieceType == 2) {
-			return 9;
+			return 8;
 		} else if (pieceType == 3) {
-			return 11;
+			return 10;
 		} else if (pieceType == 4) {
-			return 13;
+			return 12;
 		} else if (pieceType == 5) {
-			return 16;
+			return 14;
 		} else if (pieceType == 6) {
-			return 22;
+			return 18;
 		}
 		
 		return 0;

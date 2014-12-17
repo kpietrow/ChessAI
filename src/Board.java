@@ -60,8 +60,8 @@ public class Board {
 	// K Q R R B B N N P P P P P P P P 
 	//
 	// Value of each piece= P:1, N:2, B:3, R:4, Q:5, K:6
-	public Piece[] whitePieces  = { new Piece(6, 30), new Piece(5, 29), new Piece(4, 26), new Piece(4, 33), new Piece(3, 28), 
-			new Piece(3, 31), new Piece(2, 27), new Piece(2, 32), new Piece(1, 38), new Piece(1, 39), new Piece(1, 40), new Piece(1, 41), 
+	public Piece[] whitePieces  = { new Piece(5, 29), new Piece(4, 26), new Piece(4, 33), new Piece(3, 28), 
+			new Piece(3, 31), new Piece(2, 27), new Piece(2, 32), new Piece(6, 30), new Piece(1, 38), new Piece(1, 39), new Piece(1, 40), new Piece(1, 41), 
 			new Piece(1, 42), new Piece(1, 43), new Piece(1, 44), new Piece(1, 45)};
 	
 	public Piece[] blackPieces  = { new Piece(5, 113), new Piece(4, 110), new Piece(4, 117), new Piece(3, 112), 
