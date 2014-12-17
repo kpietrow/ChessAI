@@ -68,7 +68,7 @@ public class Runnable {
 				e.printStackTrace();
 			}
 		} */
-		
+		Test.test();
 		Board board = new Board();
 		
 		ConstructWhiteMove.run("0", board);
