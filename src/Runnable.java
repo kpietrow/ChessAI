@@ -71,7 +71,7 @@ public class Runnable {
 		Test.test();
 		Board board = new Board();
 		
-		ConstructWhiteMove.run("0", board);
+		Node root = ConstructWhiteMove.run(board);
 		
 		System.out.println("done!");
 		

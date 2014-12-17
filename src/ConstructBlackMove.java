@@ -4,12 +4,12 @@
  */
 public class ConstructBlackMove {
 	
-	public static Node run(String gameID, Board board) {
+	public static Node run(Board board) {
 		
 		// Find the best move
 		Node root = findBlackMoves(board);
 		
-		System.out.println("size: " + root.children.size() + ", evalValue: " + root.evalValue + ", best: " + root.bestChild.path);
+		/* System.out.println("size: " + root.children.size() + ", evalValue: " + root.evalValue + ", best: " + root.bestChild.path);
 		
 		for (int i = 0; i < root.children.size(); i++) {
 			System.out.println("\t" + root.children.get(i).path + " - " + root.children.get(i).evalValue);
@@ -18,7 +18,7 @@ public class ConstructBlackMove {
 				System.out.println("\t\t" + root.children.get(i).children.get(x).path);
 			}
 			
-		}
+		} */
 		
 		return root;
 	}

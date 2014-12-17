@@ -5,7 +5,7 @@
  */
 public class ConstructWhiteMove {
 	
-	public static Node run(String gameID, Board board) {
+	public static Node run(Board board) {
 		
 		// Find the best move
 		Node root = findMovesRoot(board);
@@ -13,6 +13,7 @@ public class ConstructWhiteMove {
 		// Convert to appropriate URL
 		//convertToURL()
 		
+		/*
 		System.out.println("size: " + root.children.size() + ", evalValue: " + root.evalValue + ", best: " + root.bestChild.path);
 		
 		for (int i = 0; i < root.children.size(); i++) {
@@ -22,7 +23,7 @@ public class ConstructWhiteMove {
 				System.out.println("\t\t" + root.children.get(i).children.get(x).path);
 			}
 			
-		}
+		} */
 		
 		return root;
 	}
