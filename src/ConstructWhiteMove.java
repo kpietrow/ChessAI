@@ -18,11 +18,10 @@ public class ConstructWhiteMove {
 		// Convert to appropriate URL
 		//convertToURL()
 		
-		System.out.println(root.children.size());
-		System.out.println(root.type);
+		System.out.println("size: " + root.children.size() + ", evalValue: " + root.evalValue);
 		
 		for (int i = 0; i < root.children.size(); i++) {
-			System.out.println("\t" + root.children.get(i).path);
+			System.out.println("\t" + root.children.get(i).path + " - " + root.children.get(i).evalValue);
 			
 			for (int x = 0; x < root.children.get(i).children.size(); x++) {
 				System.out.println("\t\t" + root.children.get(i).children.get(x).path);
@@ -39,9 +38,7 @@ public class ConstructWhiteMove {
 		
 		// Create the root node
 		Node root = new Node(new Board(board), "root");
-		
-		System.out.println(root.board.blackPieces[0].location + "-");
-		
+				
 		// Run through list of white moves
 		for (int i = 0; i < root.board.whitePieces.length; i++) {
 			if (root.board.whitePieces[i].pieceType == 6 && root.board.whitePieces[i].active) {
@@ -132,8 +129,8 @@ public class ConstructWhiteMove {
 		int[] moves = new int[] {12};
 		
 		for (int i = 0; i < moves.length; i++) {
-			// Black or empty
-			if (root.board.state[location + moves[i]] >= 0) {
+			// Empty
+			if (root.board.state[location + moves[i]] == 0) {
 				child = createBranchNode(root, whitePiecesArrayPos, location, location + moves[i]);
 				findMovesBlack(child);
 			}
@@ -392,7 +389,6 @@ public class ConstructWhiteMove {
 		
 		// Get the location now
 		int location = branch.board.blackPieces[blackPiecesArrayPos - 1].location;
-		System.out.println(branch.board.blackPieces[blackPiecesArrayPos - 1].location);
 		
 		// Possible moves for King
 		int[] moves = new int[] {-13, -12, -11, -1, 1, 11, 12, 13};
@@ -439,21 +435,21 @@ public class ConstructWhiteMove {
 		int location = branch.board.blackPieces[blackPiecesArrayPos - 1].location;
 		
 		// Possible normal moves for Pawn
-		int[] moves = new int[] {12};
+		int[] moves = new int[] {-12};
 		
 		for (int i = 0; i < moves.length; i++) {
-			// Black or empty
-			if (branch.board.state[location + moves[i]] >= 0) {
+			// Empty
+			if (branch.board.state[location + moves[i]] == 0) {
 				createLeafNode(branch, blackPiecesArrayPos, location, location + moves[i]);
 			}
 		}
 		
 		// Possible attacks
-		int[] attacks = new int[] {11, 13};
+		int[] attacks = new int[] {-11, -13};
 		
 		for (int i = 0; i < attacks.length; i++) {
-			// Black piece
-			if (branch.board.state[location + attacks[i]] < 0) {	
+			// White piece
+			if (branch.board.state[location + attacks[i]] > 0 && branch.board.state[location + attacks[i]] != 99) {	
 				createLeafNode(branch, blackPiecesArrayPos, location, location + attacks[i]);
 			}
 		}
@@ -615,7 +611,7 @@ public class ConstructWhiteMove {
 		
 		child.board.blackPieces[blackPiecesArrayPos - 1].location = newLocation;
 		child.board.state[oldLocation] = 0;
-		child.board.state[newLocation] = blackPiecesArrayPos;
+		child.board.state[newLocation] = -blackPiecesArrayPos;
 		
 		// Calculate and assign evaluation value
 		int eval = Evaluation.eval(child.board, true);
