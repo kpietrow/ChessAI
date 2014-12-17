@@ -70,9 +70,10 @@ public class Runnable {
 		} */
 		
 		Board board = new Board();
-		Board aBoard = new Board(board);
 		
-		System.out.println(Evaluation.eval(board, true));
+		ConstructWhiteMove.run("0", board);
+		
+		System.out.println("done!");
 		
 		/*
 		HttpURLConnection response;
