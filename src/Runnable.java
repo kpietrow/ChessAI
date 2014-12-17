@@ -33,6 +33,7 @@ public class Runnable {
 		
 		// Establish the buffer reader
 		BufferedReader reader = null;
+		BufferedReader sender = null;
 		
 		// String used for initial json
 		String jsonString = "";
@@ -72,7 +73,7 @@ public class Runnable {
 					moveNumber = json.getInt("lastmovenumber");
 					System.out.println("LOOP: " + jsonString);
 					
-					if ((ready && index == moveNumber)) {
+					if (ready && index == moveNumber) {
 						
 						lastMove = (String) json.get("lastmove");
 						
@@ -84,23 +85,32 @@ public class Runnable {
 						// Construct our next move
 						root = ConstructWhiteMove.run(board);
 						
-						// Interpret our own move
-						InterpretMove.interpret(root.bestChild.path, board);
-						
 						System.out.println("root: " + root.bestChild.path);
 						
-						// Send the response to the server
-						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
-						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						try {
+							// Send the response to the server
+							response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
+							sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+							
+							// Interpret our own move
+							InterpretMove.interpret(root.bestChild.path, board);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
+						
 						System.out.println("RESPONSE: " + sender.readLine());
-
 						response.disconnect();
 						sender.close();
+						
+						timeout = 0;
 						
 						System.out.println("end");
 						index += 2;
 						
-					} else if (timeout > 10) {
+					// Something went wrong...
+					// So try it again, with a random answer
+					} else if (ready && timeout > 10) {
 						System.out.println("TIMEOUT EXCEEDED");
 						timeout = 0;
 						Random rand = new Random();
@@ -108,16 +118,24 @@ public class Runnable {
 						root = ConstructWhiteMove.run(board);
 						int n = rand.nextInt(root.children.size());
 						
-						// Not the best idea, but we have to do something here
-						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.children.get(n).path + "/")).openConnection();
-						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						try {
+							// Send the response to the server
+							response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.children.get(n).path + "/")).openConnection();
+							sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+							
+							// Interpret our own move
+							InterpretMove.interpret(root.bestChild.path, board);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
+						
 						System.out.println("RESPONSE: " + sender.readLine());
-
 						response.disconnect();
 						sender.close();
 						
 						
-					} else {
+					} else if(ready) {
 						timeout++;
 					}
 					
@@ -176,38 +194,57 @@ public class Runnable {
 						// Construct our next move
 						root = ConstructBlackMove.run(board);
 						
-						// Interpret our own move
-						InterpretMove.interpret(root.bestChild.path, board);
-						
 						System.out.println("root: " + root.bestChild.path);
 						
-						// Send the response to the server
-						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
-						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						try {
+							// Send the response to the server
+							response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
+							sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+							
+							// Interpret our own move
+							InterpretMove.interpret(root.bestChild.path, board);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
+						
 						System.out.println("RESPONSE: " + sender.readLine());
 						response.disconnect();
 						sender.close();
+						
+						timeout = 0;
 						
 						System.out.println("end");
 						index += 2;
 						
-					} else if (timeout > 10) {
+					// Something went wrong...
+					// So try it again, with a random answer
+					} else if (ready && timeout > 10) {
 						System.out.println("TIMEOUT EXCEEDED");
 						timeout = 0;
 						Random rand = new Random();
 						
-						root = ConstructWhiteMove.run(board);
+						root = ConstructBlackMove.run(board);
 						int n = rand.nextInt(root.children.size());
 						
-						// Not the best idea, but we have to do something here
-						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.children.get(n).path + "/")).openConnection();
-						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						try {
+							// Send the response to the server
+							response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.children.get(n).path + "/")).openConnection();
+							sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+							
+							// Interpret our own move
+							InterpretMove.interpret(root.bestChild.path, board);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
+						
 						System.out.println("RESPONSE: " + sender.readLine());
 						response.disconnect();
 						sender.close();
 						
 						
-					} else {
+					} else if (ready) {
 						timeout++;
 					}
 					

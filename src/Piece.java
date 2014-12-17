@@ -28,7 +28,7 @@ public class Piece {
 		} else if (type == 4) {
 			value = 18;
 		} else if (type == 5) {
-			value = 40;
+			value = 60;
 		} else if (type == 6) {
 			value = 300;
 		}
