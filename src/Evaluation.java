@@ -5,9 +5,8 @@ public class Evaluation {
 	/*
 	 * This is going to be difficult. This is where the evaluation function will go.
 	 * 
-	 * Going to do a simple one to start off. Each piece will be added up. 
-	 * This class is dedicated to the white player, so only white's situation will
-	 * be considered.
+	 * Evaluates both the white and black pieces/attacks. After the have been added/subtracted together, 
+	 * they are returned (if it's a White player), or multiplied by -1 (if it's a Black player) and returned
 	 */
 	public static int eval(Board board, boolean white) {
 		

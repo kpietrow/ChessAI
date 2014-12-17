@@ -1,5 +1,7 @@
 /*
- * Interpret our opponent's wily moves
+ * Interpret our opponent's (and our own) wily moves.
+ * 
+ * Necessary to change/update the board state to reflect new realities
  */
 public class InterpretMove {
 	

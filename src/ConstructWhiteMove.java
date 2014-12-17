@@ -1,7 +1,7 @@
 
 
 /*
- * This class will handle the construction of the next move
+ * This class will handle the construction of the next move for a White player
  */
 public class ConstructWhiteMove {
 	

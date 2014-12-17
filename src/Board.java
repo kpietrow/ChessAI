@@ -1,30 +1,17 @@
 import java.util.Arrays;
 
-/*
- * So what I'm thinking for this is to have a board object that holds the 
- * current state of the board. The only flaw with this method is that I did something 
- * similar for my Rubik's cube project, and found that it was actually extremely difficult 
- * to copy the board, without copying the reference as well. For example, if you 
- * perform changes to a copy, those changes will be applied to the original as well.
- *
- *
- * We could try making a 2-D array to represent the board. I'm not sure how that would play out,
- * but it's simple if we just assign pieces to the board. We could do actual move calculation on the
- * pieces themselves.
- * 
- * What I was thinking, is that we just use the board for reference purposes only. We can pull locations from it
- * to test if moves by individual pieces would be valid or not.
- */
-
-
-
 
 /*
  * Aha!
  * 
  * I found this excellent resource: https://cis.uab.edu/hyatt/boardrep.html
  * 
- * We're going to sorround the board with a double layer of 
+ * The board is surrounded by a double layer of spots. All of the extras have a value of 99, 
+ * to clearly indicate that they are not in play. Each board position holds the location of 
+ * the piece in that pieces respective array (positive locations are white, and negative are black)
+ * 
+ * Each board also has two arrays of pieces, which store information about each piece as well as 
+ * their location on the board.
  */
 
 /*

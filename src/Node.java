@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 
-
+/*
+ * A node in the minimax tree. Has different constructors for each variety of nodes.
+ * 
+ */
 public class Node {
 	public Board board;
 	public ArrayList<Node> children = new ArrayList<Node>();

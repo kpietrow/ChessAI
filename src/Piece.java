@@ -1,5 +1,8 @@
 /*
  * The class for each piece on the board
+ * 
+ * An important feature is the active attribute, which indicates whether this piece
+ * is still in play or not.
  */
 public class Piece {
 	

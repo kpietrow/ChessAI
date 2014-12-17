@@ -13,6 +13,9 @@ import org.json.JSONObject;
 
 /*
  * This is going to hold the main method
+ * 
+ * Creates a board and all of the necessary variables, and then runs an unending game loop, 
+ * querying the server and posting moves
  */
 public class Runnable {
 	public static void main(String args[]) {
@@ -92,7 +95,7 @@ public class Runnable {
 							response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
 							sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
 							
-							// Interpret our own move
+							// If there was no error, interpret our own move
 							InterpretMove.interpret(root.bestChild.path, board);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -201,7 +204,7 @@ public class Runnable {
 							response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
 							sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
 							
-							// Interpret our own move
+							// If there was no error, interpret our own move
 							InterpretMove.interpret(root.bestChild.path, board);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
