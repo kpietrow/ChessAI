@@ -140,7 +140,7 @@ public class Board {
 		for (int i = 0; i < aBoard.whitePieces.length; i++) {
 			Piece wPiece = new Piece(aBoard.whitePieces[i].pieceType, aBoard.whitePieces[i].location, aBoard.whitePieces[i].active);
 			wPieces[i] = wPiece;
-			Piece bPiece = new Piece(aBoard.whitePieces[i].pieceType, aBoard.whitePieces[i].location, aBoard.whitePieces[i].active);
+			Piece bPiece = new Piece(aBoard.blackPieces[i].pieceType, aBoard.blackPieces[i].location, aBoard.whitePieces[i].active);
 			bPieces[i] = bPiece;
 		}
 		

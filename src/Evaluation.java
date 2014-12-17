@@ -17,12 +17,10 @@ public class Evaluation {
 		for (int i = 0; i < board.whitePieces.length; i++) {
 			if (board.whitePieces[i].active) {
 				evalValue += board.whitePieces[i].value;
-				System.out.println(evalValue);
 			}
 			
 			if (board.blackPieces[i].active) {
 				evalValue -= board.blackPieces[i].value;
-				System.out.println(evalValue);
 
 			}
 		}
@@ -31,7 +29,6 @@ public class Evaluation {
 		for (int i = 0; i < board.whitePieces.length; i++) {
 			if (board.whitePieces[i].active) {
 				evalValue += calculateWhiteAttackValue(board.whitePieces[i], board);
-				System.out.println(evalValue);
 
 			}
 		}
@@ -40,7 +37,6 @@ public class Evaluation {
 		for (int i = 0; i < board.blackPieces.length; i++) {
 			if (board.blackPieces[i].active) {
 				evalValue -= calculateBlackAttackValue(board.blackPieces[i], board);
-				System.out.println(evalValue);
 
 			}
 		}
@@ -185,7 +181,6 @@ public class Evaluation {
 		int value = 0;
 		
 		if (board.state[location - 13] > 0 && board.state[location - 13] != 99) {
-			System.out.println(board.state[location - 13] != 99);
 			value += calculateAttackValue(board.whitePieces[board.state[location - 13] - 1].pieceType);
 		}
 		
