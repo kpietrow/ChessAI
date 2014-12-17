@@ -345,24 +345,71 @@ public class ConstructWhiteMove {
 		// Run through list of white moves
 		for (int i = 0; i < branch.board.blackPieces.length; i++) {
 			if (branch.board.blackPieces[i].pieceType == 6 && branch.board.blackPieces[i].active) {
-				findMovesWhiteKing(branch, i + 1);
+				findMovesBlackKing(branch, i + 1);
 			} else if (branch.board.blackPieces[i].pieceType == 5 && branch.board.blackPieces[i].active) {
-				findMovesWhiteQueen(branch, i + 1);
+				findMovesBlackQueen(branch, i + 1);
 			} else if (branch.board.blackPieces[i].pieceType == 4 && branch.board.blackPieces[i].active) {
-				findMovesWhiteRook(branch, i + 1);
+				findMovesBlackRook(branch, i + 1);
 			} else if (branch.board.blackPieces[i].pieceType == 3 && branch.board.blackPieces[i].active) {
-				findMovesWhiteBishop(branch, i + 1);
+				findMovesBlackBishop(branch, i + 1);
 			} else if (branch.board.blackPieces[i].pieceType == 2 && branch.board.blackPieces[i].active) {
-				findMovesWhiteKnight(branch, i + 1);
+				findMovesBlackKnight(branch, i + 1);
 			} else if (branch.board.blackPieces[i].pieceType == 1 && branch.board.blackPieces[i].active) {
-				findMovesWhitePawn(branch, i + 1);
+				findMovesBlackPawn(branch, i + 1);
+			}
+			
+			/* Checks to see if we can continue with the branch
+			   Both the root and the branch have to have an evaluation score if their fate is to be decided
+			
+			   This is because the root being null signifies that we're on the first branch (or the previous
+			   branches have been abject failures. And the branch in question has to have something to be evaluated on.
+			*/
+			if (branch.parent.bestChild != null && branch.bestChild != null) {
+				// If the current branch's evalValue is lower than the root's, cut off this branch now
+				if (branch.parent.evalValue > branch.evalValue) {
+					break;
+				}
 			}
 		}
+		
+		// See if this new branch can be our champion!
+		if (branch.parent.bestChild == null) {
+			branch.parent.bestChild = branch;
+			branch.parent.evalValue = branch.evalValue;
+		} else if (branch.parent.evalValue < branch.evalValue){
+			branch.parent.evalValue = branch.evalValue;
+			branch.parent.bestChild = branch;
+		}
+		
 		return;
 	}
 	
+	// Examines all of the possible moves of a Black King
+	public static void findMovesBlackKing(Node branch, int blackPiecesArrayPos) {
+		
+		// Get the location now
+		int location = branch.board.blackPieces[blackPiecesArrayPos - 1].location;
+		
+		// Possible moves for King
+		int[] moves = new int[] {-13, -12, -11, -1, 1, 11, 12, 13};
+		
+		for (int i = 0; i < moves.length; i++) {
+			// White or empty
+			if (branch.board.state[location + moves[i]] > 0 && branch.board.state[location + moves[i]] < 99) {
+				createLeafNode(branch, blackPiecesArrayPos, location, location + moves[i]);	
+			}
+		}
+	}
+	
+	public static void findMovesBlackQueen(Node root, int whitePiecesArrayPos) {
+		
+		findMovesWhiteDiagonal(root, whitePiecesArrayPos);
+		findMovesWhiteHorizontal(root, whitePiecesArrayPos);
+		
+	}
+	
 	// Creates a Black leaf node
-	public static Node createLeafNode(Node branch, int blackPiecesArrayPos, int oldLocation, int newLocation) {
+	public static void createLeafNode(Node branch, int blackPiecesArrayPos, int oldLocation, int newLocation) {
 				
 		// Create the new node
 		Node child = new Node(new Board(branch.board), "branch", branch);
@@ -384,15 +431,11 @@ public class ConstructWhiteMove {
 		if (branch.bestChild == null) {
 			branch.bestChild = child;
 			branch.evalValue = eval;
-		} else {
-			if (eval > branch.evalValue) {
-				branch.evalValue = eval;
-				branch.bestChild = child;
-			}
+		} else if (eval < branch.evalValue) {
+			branch.evalValue = eval;
+			branch.bestChild = child;
 		}
 		
 		branch.children.add(child);
-		
-		return child;
 	}
 }

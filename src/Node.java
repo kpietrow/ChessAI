@@ -8,7 +8,7 @@ public class Node {
 							// while roots are assumed to be opponents moves
 	public Node parent;		// Node or null
 	public int evalValue = 0;	// The evaluation value
-	public Node bestChild = null;	// Who the parent favors (who has the highest evalValue)
+	public Node bestChild = null;	// Who the parent favors (who has the lowest evalValue)
 	public String path = "";	// The move to get to this position
 	
 	// Root Node
