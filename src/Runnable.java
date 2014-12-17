@@ -51,8 +51,14 @@ public class Runnable {
 		// The root Node
 		Node root = null;
 		
+		// The last move
+		String lastMove = "";
+		
 		// We're the White side
 		if (team == 1) {
+			int index = 0;
+			int moveNumber = 0;
+			
 			while (true) {
 			
 				try {
@@ -63,20 +69,34 @@ public class Runnable {
 					json = new JSONObject(jsonString);
 					
 					ready = (boolean) json.get("ready");
+					moveNumber = json.getInt("lastmovenumber");
+					System.out.println("LOOP: " + jsonString);
 					
-					if (ready) {
+					if (ready && index == moveNumber) {
 						
-						// Make changes to our board to reflect opponent's move
-						InterpretMove.interpret((String) json.get("lastmove"), board);
+						lastMove = (String) json.get("lastmove");
+						
+						if (lastMove.length() > 0) {
+							// Make changes to our board to reflect opponent's move
+							InterpretMove.interpret(lastMove, board);
+						}
 						
 						// Construct our next move
 						root = ConstructWhiteMove.run(board);
 						
+						// Interpret our own move
+						InterpretMove.interpret(root.bestChild.path, board);
+						
+						System.out.println("root: " + root.bestChild.path);
+						
 						// Send the response to the server
 						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
 						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						response.disconnect();
+						sender.close();
 						
-						System.out.println(json);
+						System.out.println("end");
+						index += 2;
 					}
 					
 				// Now... Sleep!
@@ -100,6 +120,9 @@ public class Runnable {
 			
 		// We're the Black side
 		} else {
+			int index = 1;
+			int moveNumber = 0;
+			
 			while (true) {
 				
 				try {
@@ -107,14 +130,24 @@ public class Runnable {
 					query = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/poll/" + input + "/209/fcbd8a97/")).openConnection();
 					reader = new BufferedReader(new InputStreamReader(query.getInputStream()));
 					jsonString = reader.readLine();
+					
+					query.disconnect();
+					reader.close();
+					
 					json = new JSONObject(jsonString);
 					
 					ready = (boolean) json.get("ready");
+					moveNumber = json.getInt("lastmovenumber");
 					
-					if (ready) {
+					
+					if (ready && index == moveNumber) {
 						
-						// Make changes to our board to reflect opponent's move
-						InterpretMove.interpret((String) json.get("lastmove"), board);
+						lastMove = (String) json.get("lastmove");
+						
+						if (lastMove.length() > 0) {
+							// Make changes to our board to reflect opponent's move
+							InterpretMove.interpret(lastMove, board);
+						}
 						
 						// Construct our next move
 						root = ConstructBlackMove.run(board);
@@ -122,8 +155,11 @@ public class Runnable {
 						// Send the response to the server
 						response = (HttpURLConnection) (new URL("http://www.bencarle.com/chess/move/" + input + "/209/fcbd8a97/" + root.bestChild.path + "/")).openConnection();
 						BufferedReader sender = new BufferedReader(new InputStreamReader(response.getInputStream()));
+						response.disconnect();
+						sender.close();
 						
 						System.out.println(json);
+						index += 2;
 					}
 					
 				// Now... Sleep!

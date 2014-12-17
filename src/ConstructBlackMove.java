@@ -96,11 +96,11 @@ public class ConstructBlackMove {
 	}
 	
 	public static void findMovesWhiteRook(Node root, int whitePiecesArrayPos) {
-		findMovesWhiteDiagonal(root, whitePiecesArrayPos);
+		findMovesWhiteHorizontal(root, whitePiecesArrayPos);
 	}
 	
 	public static void findMovesWhiteBishop(Node root, int whitePiecesArrayPos) {
-		findMovesWhiteHorizontal(root, whitePiecesArrayPos);
+		findMovesWhiteDiagonal(root, whitePiecesArrayPos);
 	}
 	
 	public static void findMovesWhiteKnight(Node root, int whitePiecesArrayPos) {
@@ -140,7 +140,7 @@ public class ConstructBlackMove {
 		
 		for (int i = 0; i < attacks.length; i++) {
 			// Black piece
-			if (root.board.state[location + attacks[i]] < 0) {	
+			if (root.board.state[location + attacks[i]] < 0) {
 				createLeafNode(root, whitePiecesArrayPos, location, location + attacks[i]);
 				
 			}
@@ -352,11 +352,11 @@ public class ConstructBlackMove {
 	}
 	
 	public static void findMovesBlackRook(Node root, int blackPiecesArrayPos) {
-		findMovesBlackDiagonal(root, blackPiecesArrayPos);
+		findMovesBlackHorizontal(root, blackPiecesArrayPos);
 	}
 	
 	public static void findMovesBlackBishop(Node root, int blackPiecesArrayPos) {
-		findMovesBlackHorizontal(root, blackPiecesArrayPos);
+		findMovesBlackDiagonal(root, blackPiecesArrayPos);
 	}
 	
 	public static void findMovesBlackKnight(Node root, int blackPiecesArrayPos) {
@@ -569,7 +569,7 @@ public class ConstructBlackMove {
 		Node child = new Node(new Board(branch.board), "branch", branch);
 		child.createPath(child.board.whitePieces[whitePiecesArrayPos - 1].pieceType, oldLocation, newLocation);
 		
-		if (child.board.state[newLocation] > 0 && child.board.state[newLocation] != 99) {
+		if (child.board.state[newLocation] < 0) {
 			child.board.blackPieces[child.board.state[newLocation] - 1 * (-1) - 1].active = false;
 		}
 		
@@ -599,7 +599,7 @@ public class ConstructBlackMove {
 		Node child = new Node(new Board(root.board), "branch", root);
 		child.createPath(root.board.blackPieces[blackPiecesArrayPos - 1].pieceType, oldLocation, newLocation);
 		
-		if (child.board.state[newLocation] < 0) {
+		if (child.board.state[newLocation] > 0 && child.board.state[newLocation] != 99) {
 			child.board.whitePieces[child.board.state[newLocation] - 1].active = false;
 		}
 		

@@ -57,14 +57,14 @@ public class InterpretMove {
 			}
 			board.state[firstPos] = 0;
 			
-		// Black piece takeover
+		// Black piece taken over
 		} else if (board.state[secondPos] < 0) {
 			board.blackPieces[board.state[secondPos] * (-1) - 1].active = false;
 			board.state[secondPos] = board.state[firstPos];
 			board.whitePieces[board.state[firstPos] - 1].location = secondPos;
 			board.state[firstPos] = 0;
 			
-		// White piece takeover
+		// White piece taken over
 		} else {
 			board.whitePieces[board.state[secondPos] - 1].active = false;
 			board.state[secondPos] = board.state[firstPos];

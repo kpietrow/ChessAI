@@ -45,7 +45,7 @@ public class Evaluation {
 		}
 		
 		evalValue -= blackValue;
-				
+					
 		// If player is White, return as is. Else, return the result reversed
 		if (white) {
 			return evalValue;
@@ -208,7 +208,6 @@ public class Evaluation {
 			// White piece detected
 			} else if (board.state[i] > 0) {
 				value += calculateAttackValue(board.whitePieces[board.state[i] - 1].pieceType);
-				System.out.println("first");
 				break;
 			}
 		}
@@ -221,8 +220,6 @@ public class Evaluation {
 			// White piece detected
 			} else if (board.state[i] > 0) {
 				value += calculateAttackValue(board.whitePieces[board.state[i] - 1].pieceType);
-				System.out.println("second");
-
 				break;
 			}
 		}
@@ -574,13 +571,13 @@ public class Evaluation {
 		} else if (pieceType == 2) {
 			return 3;
 		} else if (pieceType == 3) {
-			return 5;
+			return 4;
 		} else if (pieceType == 4) {
-			return 7;
+			return 5;
 		} else if (pieceType == 5) {
-			return 10;
+			return 6;
 		} else if (pieceType == 6) {
-			return 15;
+			return 10;
 		}
 		
 		return 0;

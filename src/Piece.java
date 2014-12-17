@@ -22,13 +22,13 @@ public class Piece {
 		if (type == 1) {
 			value = 1;
 		} else if (type == 2) {
-			value = 2; 
+			value = 8; 
 		} else if (type == 3) {
-			value = 4;
+			value = 10;
 		} else if (type == 4) {
-			value = 8;
-		} else if (type == 5) {
 			value = 16;
+		} else if (type == 5) {
+			value = 30;
 		} else if (type == 6) {
 			value = 100;
 		}

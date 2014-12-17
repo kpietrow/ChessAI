@@ -86,11 +86,11 @@ public class ConstructWhiteMove {
 	}
 	
 	public static void findMovesWhiteRook(Node root, int whitePiecesArrayPos) {
-		findMovesWhiteDiagonal(root, whitePiecesArrayPos);
+		findMovesWhiteHorizontal(root, whitePiecesArrayPos);
 	}
 	
 	public static void findMovesWhiteBishop(Node root, int whitePiecesArrayPos) {
-		findMovesWhiteHorizontal(root, whitePiecesArrayPos);
+		findMovesWhiteDiagonal(root, whitePiecesArrayPos);
 	}
 	
 	public static void findMovesWhiteKnight(Node root, int whitePiecesArrayPos) {
@@ -370,6 +370,7 @@ public class ConstructWhiteMove {
 		// See if this new branch can be our champion!
 		if (branch.parent.bestChild == null) {
 			branch.parent.bestChild = branch;
+			System.out.println("path: " + branch.path);
 			branch.parent.evalValue = branch.evalValue;
 		} else if (branch.parent.evalValue < branch.evalValue){
 			branch.parent.evalValue = branch.evalValue;
@@ -402,11 +403,11 @@ public class ConstructWhiteMove {
 	}
 	
 	public static void findMovesBlackRook(Node branch, int blackPiecesArrayPos) {
-		findMovesBlackDiagonal(branch, blackPiecesArrayPos);
+		findMovesBlackHorizontal(branch, blackPiecesArrayPos);
 	}
 	
 	public static void findMovesBlackBishop(Node branch, int blackPiecesArrayPos) {
-		findMovesBlackHorizontal(branch, blackPiecesArrayPos);
+		findMovesBlackDiagonal(branch, blackPiecesArrayPos);
 	}
 	
 	public static void findMovesBlackKnight(Node branch, int blackPiecesArrayPos) {
