@@ -13,22 +13,24 @@ public class ConstructWhiteMove {
 		// Convert to appropriate URL
 		//convertToURL()
 		
-		/*
+		
 		System.out.println("size: " + root.children.size() + ", evalValue: " + root.evalValue + ", best: " + root.bestChild.path);
 		
 		for (int i = 0; i < root.children.size(); i++) {
 			System.out.println("\t" + root.children.get(i).path + " - " + root.children.get(i).evalValue);
 			
 			for (int x = 0; x < root.children.get(i).children.size(); x++) {
-				System.out.println("\t\t" + root.children.get(i).children.get(x).path);
+				System.out.println("\t\t" + root.children.get(i).children.get(x).path + " - " + root.children.get(i).children.get(x).evalValue);
 			}
 			
-		} */
+		}
+		
+		System.out.println("----------------------------");
 		
 		return root;
 	}
 	
-	// Root method of developing the potentential board moves
+	// Root method of developing the potential board moves
 	public static Node findMovesRoot(Board board) {
 		
 		// Create the root node
@@ -323,6 +325,13 @@ public class ConstructWhiteMove {
 		child.board.whitePieces[whitePiecesArrayPos - 1].location = newLocation;
 		child.board.state[oldLocation] = 0;
 		child.board.state[newLocation] = whitePiecesArrayPos;
+		
+		if (!Evaluation.checkKingStatus(child.board.blackPieces)) {
+			// Set to, essentially, infinity
+			child.evalValue = 99999;
+			root.evalValue = child.evalValue;
+			root.bestChild = child;
+		}
 		
 		root.children.add(child);
 		

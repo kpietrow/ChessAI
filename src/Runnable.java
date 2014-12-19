@@ -88,7 +88,7 @@ public class Runnable {
 						// Construct our next move
 						root = ConstructWhiteMove.run(board);
 						
-						System.out.println("root: " + root.bestChild.path);
+						System.out.println("root: " + root.bestChild.path + " - " + root.bestChild.evalValue);
 						
 						try {
 							// Send the response to the server
@@ -113,7 +113,7 @@ public class Runnable {
 						
 					// Something went wrong...
 					// So try it again, with a random answer
-					} else if (ready && timeout > 10) {
+					} else if (ready && timeout > 5) {
 						System.out.println("TIMEOUT EXCEEDED");
 						timeout = 0;
 						Random rand = new Random();
@@ -197,7 +197,7 @@ public class Runnable {
 						// Construct our next move
 						root = ConstructBlackMove.run(board);
 						
-						System.out.println("root: " + root.bestChild.path);
+						System.out.println("root: " + root.bestChild.path + " - " + root.bestChild.evalValue);
 						
 						try {
 							// Send the response to the server
@@ -222,7 +222,7 @@ public class Runnable {
 						
 					// Something went wrong...
 					// So try it again, with a random answer
-					} else if (ready && timeout > 10) {
+					} else if (ready && timeout > 5) {
 						System.out.println("TIMEOUT EXCEEDED");
 						timeout = 0;
 						Random rand = new Random();

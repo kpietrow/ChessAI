@@ -33,7 +33,7 @@ public class Piece {
 		} else if (type == 5) {
 			value = 60;
 		} else if (type == 6) {
-			value = 300;
+			value = 2000;
 		}
 	}
 	
@@ -47,7 +47,7 @@ public class Piece {
 		 * 
 		 */
 		if (type == 1) {
-			value = 4;
+			value = 2;
 		} else if (type == 2) {
 			value = 12; 
 		} else if (type == 3) {
@@ -55,9 +55,9 @@ public class Piece {
 		} else if (type == 4) {
 			value = 18;
 		} else if (type == 5) {
-			value = 40;
+			value = 60;
 		} else if (type == 6) {
-			value = 300;
+			value = 2000;
 		}
 	}
 	

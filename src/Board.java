@@ -47,12 +47,12 @@ public class Board {
 	// K Q R R B B N N P P P P P P P P 
 	//
 	// Value of each piece= P:1, N:2, B:3, R:4, Q:5, K:6
-	public Piece[] whitePieces  = { new Piece(5, 29), new Piece(4, 26), new Piece(4, 33), new Piece(3, 28), 
-			new Piece(3, 31), new Piece(2, 27), new Piece(2, 32), new Piece(6, 30), new Piece(1, 38), new Piece(1, 39), new Piece(1, 40), new Piece(1, 41), 
+	public Piece[] whitePieces  = { new Piece(6, 30), new Piece(5, 29), new Piece(4, 26), new Piece(4, 33), new Piece(3, 28), 
+			new Piece(3, 31), new Piece(2, 27), new Piece(2, 32), new Piece(1, 38), new Piece(1, 39), new Piece(1, 40), new Piece(1, 41), 
 			new Piece(1, 42), new Piece(1, 43), new Piece(1, 44), new Piece(1, 45)};
 	
-	public Piece[] blackPieces  = { new Piece(5, 113), new Piece(4, 110), new Piece(4, 117), new Piece(3, 112), 
-			new Piece(3, 115), new Piece(2, 111), new Piece(2, 116), new Piece(6, 114), new Piece(1, 98), new Piece(1, 99), new Piece(1, 100), new Piece(1, 101), 
+	public Piece[] blackPieces  = { new Piece(6, 114), new Piece(5, 113), new Piece(4, 110), new Piece(4, 117), new Piece(3, 112), 
+			new Piece(3, 115), new Piece(2, 111), new Piece(2, 116), new Piece(1, 98), new Piece(1, 99), new Piece(1, 100), new Piece(1, 101), 
 			new Piece(1, 102), new Piece(1, 103), new Piece(1, 104), new Piece(1, 105)};
 	
 	// The board. Each individual value is the location of the piece in the pieces array
@@ -91,24 +91,23 @@ public class Board {
 		}
 		
 		// Fill in the rest
-		state[29] = 1;
-		state[26] = 2;
-		state[33] = 3;
-		state[28] = 4;
-		state[31] = 5;
-		state[27] = 6;
-		state[32] = 7;
-		state[30] = 8;
+		state[30] = 1;
+		state[29] = 2;
+		state[26] = 3;
+		state[33] = 4;
+		state[28] = 5;
+		state[31] = 6;
+		state[27] = 7;
+		state[32] = 8;
 		
-		state[113] = -1;
-		state[110] = -2;
-		state[117] = -3;
-		state[112] = -4;
-		state[115] = -5;
-		state[111] = -6;
-		state[116] = -7;
-		state[114] = -8;
-		
+		state[114] = -1;
+		state[113] = -2;
+		state[110] = -3;
+		state[117] = -4;
+		state[112] = -5;
+		state[115] = -6;
+		state[111] = -7;
+		state[116] = -8;		
 	}
 	
 	// Copy constructor

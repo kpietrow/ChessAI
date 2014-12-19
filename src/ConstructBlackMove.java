@@ -607,6 +607,14 @@ public class ConstructBlackMove {
 		child.board.state[oldLocation] = 0;
 		child.board.state[newLocation] = -blackPiecesArrayPos;
 		
+		if (!Evaluation.checkKingStatus(child.board.whitePieces)) {
+			// Set to, essentially, infinity
+			child.evalValue = 99999;
+			root.evalValue = child.evalValue;
+			root.bestChild = child;
+		}
+		
+		
 		root.children.add(child);
 		
 		return child;

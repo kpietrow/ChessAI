@@ -18,7 +18,7 @@ public class InterpretMove {
 		adjustBoard(board, firstPos, secondPos);
 		
 		// Test code in case Pawn makes it all the way
-		if (input.substring(0, 1).equals("P")) {
+		if (input.substring(0, 1).equals("P") && input.length() == 6) {
 			
 			// If either of these, it made it!
 			if (secondPos >= 110) {

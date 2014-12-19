@@ -25,13 +25,10 @@ public class Evaluation {
 			}
 		}
 		
-		evalValue -= blackValue;
-		blackValue = 0;
-		
 		// Now let's add the white side's attacks
 		for (int i = 0; i < board.whitePieces.length; i++) {
 			if (board.whitePieces[i].active) {
-				evalValue += calculateWhiteAttackValue(board.whitePieces[i], board);
+				evalValue += calculateWhiteAttackValues(board.whitePieces[i], board);
 
 			}
 		}
@@ -39,7 +36,7 @@ public class Evaluation {
 		// Now let's add the black side's attacks
 		for (int i = 0; i < board.blackPieces.length; i++) {
 			if (board.blackPieces[i].active) {
-				blackValue += calculateBlackAttackValue(board.blackPieces[i], board);
+				blackValue += calculateBlackAttackValues(board.blackPieces[i], board);
 			}
 		}
 		
@@ -54,7 +51,7 @@ public class Evaluation {
 	}
 	
 	// The hub for determining the potential value of a white piece's attacks
-	public static int calculateBlackAttackValue(Piece piece, Board board) {
+	public static int calculateBlackAttackValues(Piece piece, Board board) {
 		
 		// Get the location of the piece on the board
 		int location = piece.location;
@@ -308,7 +305,7 @@ public class Evaluation {
 	}
 	
 	// The hub for determining the potential value of a white piece's attacks
-	public static int calculateWhiteAttackValue(Piece piece, Board board) {
+	public static int calculateWhiteAttackValues(Piece piece, Board board) {
 		
 		// Get the location of the piece on the board
 		int location = piece.location;
@@ -563,7 +560,11 @@ public class Evaluation {
 		return value;
 	}
 	
+	/*******************************************
+	 * Evaluation Utils
+	 */
 	
+	// Calculates the value of a potential attack on a particular piece
 	public static int calculateAttackValue(int pieceType) {
 		if (pieceType == 1) {
 			return 1;
@@ -580,5 +581,25 @@ public class Evaluation {
 		}
 		
 		return 0;
+	}
+	
+	// Checks the status of a King of passed-in Pieces array
+	public static boolean checkKingStatus(Piece[] pieces) {
+		for (int i = 0; i < pieces.length; i++) {
+			if (pieces[i].pieceType == 6) {
+				
+				// True if still active
+				if (pieces[i].active) {
+					return true;
+					
+				// False if otherwise
+				} else {
+					return false;
+				}
+			}
+		}
+		
+		// This should never be reached, but just in case...
+		return false;
 	}
 }
