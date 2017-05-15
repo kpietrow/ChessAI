@@ -1,3 +1,5 @@
+package old;
+
 /*
  * The class for each piece on the board
  * 

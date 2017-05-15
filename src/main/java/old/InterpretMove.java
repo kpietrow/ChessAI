@@ -1,3 +1,5 @@
+package old;
+
 /*
  * Interpret our opponent's (and our own) wily moves.
  * 
