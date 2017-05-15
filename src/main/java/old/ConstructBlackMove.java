@@ -1,3 +1,4 @@
+package old;
 
 /*
  * This class will handle the construction of the next move for a Black player
